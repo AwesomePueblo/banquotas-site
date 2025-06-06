@@ -1,15 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BanQuotas</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BanQuotas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    .nav {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .nav a {
+      font-weight: bold;
+    }
+    .hero {
+      margin-bottom: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .card {
+      background: white;
+      border-left: 4px solid var(--cerulean);
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    .card a {
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
+  <div class="hero">
     <h1>Welcome to BanQuotas</h1>
-    <p>This is the start of something great.</p>
-    <a href="senses/">Explore the Senses Project</a>
+    <p>Exploring the sensory spectrum, perception, and beyond—through poetic-scientific journeys.</p>
+  </div>
+
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="senses/">The Senses Project</a>
+  </nav>
+
+  <div class="grid">
+    <div class="card">
+      <h2>🌈 Journey Through Light</h2>
+      <p>Travel from radio waves to gamma rays with a soul suspended in the spectrum—experiencing the full range of light, color, and transformation.</p>
+      <a href="senses/light.html">Read the full journey →</a>
+    </div>
+
+    <div class="card">
+      <h2>🍽 Journey Through Taste</h2>
+      <p>From untastable molecules to umami and beyond—this is a grounded yet poetic exploration of the biology and emotion of flavor.</p>
+      <a href="senses/taste.html">Begin the taste odyssey →</a>
+    </div>
+  </div>
 </body>
 </html>
