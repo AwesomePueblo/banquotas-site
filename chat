@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conversation with an AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Conversation with an AI</h1>
+
+  <section>
+    <h2>Exploring Perception Through Dialogue</h2>
+    <p>This page features a curated excerpt from a recent exchange with an artificial intelligence — a reflection on perception, language, and the unseen architecture of awareness.</p>
+  </section>
+
+  <section>
+    <h2>The Transcript</h2>
+    <p>[Insert your selected chat content here. If you’d like me to help summarize or format it, I can do that too.]</p>
+  </section>
+
+  <p><a href="/">← Back to Home</a></p>
+</body>
+</html>
