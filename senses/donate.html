@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     .donate-container {
-      max-width: 600px;
+      max-width: 640px;
       margin: 3rem auto;
       padding: 2rem;
       background: white;
@@ -17,27 +17,26 @@
       border-radius: 6px;
       text-align: center;
     }
-    .donate-container h1 {
-      margin-top: 0;
-    }
+    .donate-container h1 { margin-top: 0; }
+    .qr-wrap { margin: 1.5rem 0; }
+    .qr-wrap img { width: 260px; max-width: 80vw; height: auto; }
+    .btn-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
     .donate-button {
       display: inline-block;
-      margin-top: 1.5rem;
       background: var(--cerulean);
-      color: white;
-      padding: 0.75rem 1.5rem;
+      color: #fff;
+      padding: 0.75rem 1.25rem;
       border-radius: 4px;
       font-weight: bold;
       text-decoration: none;
       transition: background 0.2s ease;
     }
-    .donate-button:hover {
-      background: var(--cerulean-dark);
-    }
+    .donate-button:hover { background: var(--cerulean-dark); }
+    .note { font-size: 0.9rem; color: #555; margin-top: 0.75rem; }
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav" style="margin-bottom:2rem;">
     <a href="/">Home</a>
     <a href="senses/">The Senses Project</a>
     <a href="chat.html">AI Conversation</a>
@@ -45,11 +44,28 @@
 
   <div class="donate-container">
     <h1>Support BanQuotas</h1>
-    <p>
-      If you enjoy these explorations and want to support future projects, 
-      consider donating via Venmo.
-    </p>
-    <a class="donate-button" href="https://venmo.com/u/lukehigg" target="_blank">Donate via Venmo</a>
+    <p>Enjoying the project? You can donate securely via Venmo.</p>
+
+    <!-- QR: generates a QR for https://venmo.com/u/lukehigg -->
+    <div class="qr-wrap">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=https%3A%2F%2Fvenmo.com%2Fu%2Flukehigg"
+        alt="QR code linking to Venmo @lukehigg" />
+      <div class="note">Scan with your phone’s camera to open Venmo.</div>
+    </div>
+
+    <div class="btn-row">
+      <!-- Web profile -->
+      <a class="donate-button" href="https://venmo.com/u/lukehigg" target="_blank" rel="noopener">
+        Open Venmo (Web)
+      </a>
+      <!-- App deep link (many phones will route to the Venmo app) -->
+      <a class="donate-button" href="venmo://u/lukehigg">
+        Open in Venmo App
+      </a>
+    </div>
+
+    <p class="note">If the app link doesn’t open, use the web button or scan the QR.</p>
   </div>
 </body>
 </html>
