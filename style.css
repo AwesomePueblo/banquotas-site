@@ -55,3 +55,24 @@ section {
   margin: 2rem 0;
   color: #555;
 }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-primary {
+  background: var(--cerulean);
+  color: #fff !important;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--cerulean-dark);
+  text-decoration: none;
+}
