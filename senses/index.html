@@ -3,23 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Beyond the Spectrum</title>
+  <title>Beyond the Spectrum - BanQuotas</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <h1>Beyond the Spectrum</h1>
-  <p>Welcome to a sensory journey. Each entry explores the hidden layers of our perception, from the narrow bands we know to the endless frequencies beyond our reach.</p>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
 
-  <div class="quote">
-    “I begin in silence at the far end of light, where radio waves roll lazily like an endless dark ocean...”
-  </div>
-<p><a href="light.html">Journey Through Light</a></p>
-<p><a href="taste.html">Journey Through Taste</a></p>
-
-  <nav style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
-    <a href="../">← Back to Home</a> | 
-    <a href="../chat.html">AI Conversation</a> | 
-    <a href="../senses/donate.html">Support BanQuotas</a>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html" class="active">The Senses Project</a></li>
+        <li><a href="light.html">Journey Through Light</a></li>
+        <li><a href="taste.html">Journey Through Taste</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
   </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero">
+      <h1>Beyond the Spectrum</h1>
+      <p>Welcome to a sensory journey. Each entry explores the hidden layers of our perception, from the narrow bands we know to the endless frequencies beyond our reach.</p>
+    </div>
+
+    <div class="quote">
+      I begin in silence at the far end of light, where radio waves roll lazily like an endless dark ocean...
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🌈 Journey Through Light</h2>
+        <p>Travel from radio waves to gamma rays with a soul suspended in the spectrum—experiencing the full range of light, color, and transformation through a poetic exploration of electromagnetic radiation.</p>
+        <a href="light.html">Read the full journey</a>
+      </div>
+
+      <div class="card">
+        <h2>🍽 Journey Through Taste</h2>
+        <p>From untastable molecules to umami and beyond—this is a grounded yet poetic exploration of the biology and emotion of flavor, diving deep into the science of sensation.</p>
+        <a href="taste.html">Begin the taste odyssey</a>
+      </div>
+    </div>
+
+    <div class="content-nav">
+      <a href="../">← Back to Home</a>
+      <a href="../chat.html">AI Conversation</a>
+      <a href="donate.html">Support BanQuotas</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (window.innerWidth <= 768 && 
+          !sidebar.contains(event.target) && 
+          !toggle.contains(event.target) && 
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>

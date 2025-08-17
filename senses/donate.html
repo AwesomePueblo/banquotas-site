@@ -5,49 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support BanQuotas</title>
   <link rel="stylesheet" href="../style.css" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <style>
-    .donate-container {
-      max-width: 640px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: white;
-      border-left: 4px solid var(--cerulean);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      border-radius: 6px;
-      text-align: center;
-    }
-    .donate-container h1 { margin-top: 0; }
-    .donate-button {
-      display: inline-block;
-      margin-top: 1.5rem;
-      background: var(--cerulean);
-      color: white;
-      padding: 0.9rem 1.75rem;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: background 0.2s ease;
-    }
-    .donate-button:hover { background: var(--cerulean-dark); }
-  </style>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
 </head>
 <body>
-  <nav class="nav" style="margin-bottom:2rem;">
-    <a href="/">Home</a>
-    <a href="senses/">The Senses Project</a>
-    <a href="../chat.html">AI Conversation</a>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">The Senses Project</a></li>
+        <li><a href="light.html">Journey Through Light</a></li>
+        <li><a href="taste.html">Journey Through Taste</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="donate.html" class="active">Support BanQuotas</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="donate-container">
-    <h1>Support BanQuotas</h1>
-    <p>
-      If you’d like to help keep these projects going, you can donate securely through Venmo.
-    </p>
-    <a class="donate-button" href="https://venmo.com/u/lukehigg" target="_blank" rel="noopener">
-      Donate via Venmo
-    </a>
-  </div>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero">
+      <h1>Support BanQuotas</h1>
+      <p>Help keep these poetic-scientific explorations alive and support the creation of more sensory journeys.</p>
+    </div>
+
+    <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <h2>💙 Make a Contribution</h2>
+      <p>If you'd like to help keep these projects going and support the creation of more poetic-scientific explorations, you can contribute securely through Venmo.</p>
+      <a class="btn btn-primary" href="https://venmo.com/u/lukehigg" target="_blank" rel="noopener">
+        Donate via Venmo
+      </a>
+    </div>
+
+    <div class="content-nav">
+      <a href="../">← Back to Home</a>
+      <a href="index.html">The Senses Project</a>
+      <a href="../chat.html">AI Conversation</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (window.innerWidth <= 768 && 
+          !sidebar.contains(event.target) && 
+          !toggle.contains(event.target) && 
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>

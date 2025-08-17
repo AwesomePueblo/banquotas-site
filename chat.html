@@ -3,11 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Conversation with an AI</title>
+  <title>Conversation with an AI - BanQuotas</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Conversation with an AI</h1>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="senses/index.html">The Senses Project</a></li>
+        <li><a href="senses/light.html">Journey Through Light</a></li>
+        <li><a href="senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="chat.html" class="active">AI Conversation</a></li>
+        <li><a href="senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero">
+      <h1>Conversation with an AI</h1>
+      <p>A curious and poetic dialogue between human and machine on perception, consciousness, and the limits of language.</p>
+    </div>
 
   <section>
     <h2>Exploring Perception Through Dialogue</h2>
@@ -24,10 +57,39 @@
     </p>
   </section>
 
-  <nav style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
-    <a href="/">← Back to Home</a> | 
-    <a href="senses/index.html">The Senses Project</a> | 
-    <a href="senses/donate.html">Support BanQuotas</a>
-  </nav>
+    <div class="content-nav">
+      <a href="/">← Back to Home</a>
+      <a href="senses/index.html">The Senses Project</a>
+      <a href="senses/donate.html">Support BanQuotas</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (window.innerWidth <= 768 && 
+          !sidebar.contains(event.target) && 
+          !toggle.contains(event.target) && 
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>

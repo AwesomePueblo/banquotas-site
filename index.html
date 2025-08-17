@@ -6,73 +6,96 @@
   <title>BanQuotas</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <style>
-    .nav {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .nav a {
-      font-weight: bold;
-    }
-    .hero {
-      margin-bottom: 2rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .card {
-      background: white;
-      border-left: 4px solid var(--cerulean);
-      padding: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border-radius: 6px;
-    }
-    .card h2 {
-      margin-top: 0;
-    }
-    .card a {
-      font-size: 0.9rem;
-    }
-  </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Welcome to BanQuotas</h1>
-    <p>Exploring the sensory spectrum, perception, and beyond—through poetic-scientific journeys.</p>
-  </div>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
 
-  <nav class="nav">
-    <a href="/">Home</a>
-    <a href="senses/">The Senses Project</a>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="senses/index.html">The Senses Project</a></li>
+        <li><a href="senses/light.html">Journey Through Light</a></li>
+        <li><a href="senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="chat.html">AI Conversation</a></li>
+        <li><a href="senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="grid">
-    <div class="card">
-      <h2>🌈 Journey Through Light</h2>
-      <p>Travel from radio waves to gamma rays with a soul suspended in the spectrum—experiencing the full range of light, color, and transformation.</p>
-      <a href="senses/light.html">Read the full journey →</a>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero">
+      <h1>Welcome to BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond—through poetic-scientific journeys that bridge the gap between science and soul.</p>
     </div>
 
-    <div class="card">
-      <h2>🍽 Journey Through Taste</h2>
-      <p>From untastable molecules to umami and beyond—this is a grounded yet poetic exploration of the biology and emotion of flavor.</p>
-      <a href="senses/taste.html">Begin the taste odyssey →</a>
+    <div class="grid">
+      <div class="card">
+        <h2>🌈 Journey Through Light</h2>
+        <p>Travel from radio waves to gamma rays with a soul suspended in the spectrum—experiencing the full range of light, color, and transformation through a poetic exploration of electromagnetic radiation.</p>
+        <a href="senses/light.html">Read the full journey</a>
+      </div>
+
+      <div class="card">
+        <h2>🍽 Journey Through Taste</h2>
+        <p>From untastable molecules to umami and beyond—this is a grounded yet poetic exploration of the biology and emotion of flavor, diving deep into the science of sensation.</p>
+        <a href="senses/taste.html">Begin the taste odyssey</a>
+      </div>
+
+      <div class="card">
+        <h2>🤖 Conversation with an AI</h2>
+        <p>A curious and poetic dialogue between human and machine on perception, consciousness, and the limits of language—exploring what it means to understand and be understood.</p>
+        <a href="chat.html">Read the conversation</a>
+      </div>
+
+      <div class="card">
+        <h2>💙 Support BanQuotas</h2>
+        <p>If you'd like to help keep these projects going and support the creation of more poetic-scientific explorations, you can contribute securely through Venmo.</p>
+        <a href="senses/donate.html">Go to donation page</a>
+      </div>
     </div>
-  </div>
-<div class="card">
-  <h2>🤖 Conversation with an AI</h2>
-  <p>A curious and poetic dialogue between human and machine on perception, consciousness, and the limits of language.</p>
-  <a href="chat.html">Read the conversation →</a>
-</div>
+  </main>
 
-<div class="card">
-  <h2>💙 Support BanQuotas</h2>
-  <p>If you’d like to help keep these projects going, you can donate securely through Venmo.</p>
-  <a href="senses/donate.html">Go to donation page →</a>
-</div>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
 
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (window.innerWidth <= 768 && 
+          !sidebar.contains(event.target) && 
+          !toggle.contains(event.target) && 
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
