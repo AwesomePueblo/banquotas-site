@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Voice Call → Booking Link (JSON-Path Configurable)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="A reusable Apex + LWC that maps arbitrary JSON payloads on VoiceCall to Booking lookups without code changes." />
+  <style>
+    :root { --fg:#0a2540; --muted:#5b6b7a; --accent:#0070f3; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:var(--fg); line-height:1.5; margin:0; }
+    header, main { max-width: 900px; margin: 0 auto; padding: 24px; }
+    header h1 { margin: 0 0 4px; font-size: 28px; }
+    header p { margin: 0; color: var(--muted); }
+    h2 { margin-top: 32px; }
+    code, pre { background:#f6f8fa; border:1px solid #eaecef; border-radius:6px; }
+    code { padding: 2px 5px; }
+    pre { padding:12px; overflow:auto; }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card { border:1px solid #eaecef; border-radius:10px; padding:16px; background:#fff; }
+    .muted { color:var(--muted); }
+    .note { background:#f0f7ff; border-left:4px solid var(--accent); padding:10px 12px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid #eaecef; padding:8px; text-align:left; }
+    footer { margin: 40px 0 20px; color: var(--muted); font-size: 14px; }
+    .cta { margin-top: 24px; }
+    .cta a { display:inline-block; margin-right:12px; padding:10px 14px; border:1px solid var(--accent); border-radius:8px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Voice Call → Booking Link (JSON-Path Configurable)</h1>
+  <p class="muted">Reusable Salesforce Apex + LWC. Extract fields from JSON on <code>VoiceCall</code>, find <code>Booking__c</code>, list child <code>Booking_Key__c</code>, and link—no code changes when payload keys vary.</p>
+</header>
+
+<main>
+
+  <div class="note">
+    <strong>What this solves:</strong> Different contact center/IVR vendors send different JSON shapes. This component lets you configure the JSON paths (e.g., <code>bookingNumber</code>, <code>guest.id</code>, <code>entities[0].value</code>) in App Builder—no redeploys when keys change.
+  </div>
+
+  <h2>Who is this for</h2>
+  <p>
+    Teams using Salesforce voice/call records that store a JSON payload (e.g., from telephony/IVR) and need to relate that call to a booking quickly, with minimal per-org customization.
+  </p>
+
+  <h2>How it works (overview)</h2>
+  <ol>
+    <li>Reads JSON from a configurable field on <code>VoiceCall</code> (e.g., <code>VoiceCall.Customer_Entry__c</code>).</li>
+    <li>Extracts <strong>Booking Number</strong> and optional <strong>CCN/Contact Id</strong> using JSON paths you set.</li>
+    <li>Queries <code>Booking__c</code> by your configured booking number field.</li>
+    <li>Queries child <code>Booking_Key__c</code> rows, optionally filtered by account CCN.</li>
+    <li>Agent clicks <strong>Select</strong> to write the chosen key to a lookup on <code>VoiceCall</code>.</li>
+  </ol>
+
+  <h2>Quick Start (≈10 minutes)</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>1) Required fields</h3>
+      <ul>
+        <li><code>VoiceCall.Customer_Entry__c</code> (Long Text Area for JSON)</li>
+        <li><code>VoiceCall.Booking_Record__c</code> (Lookup → <code>Booking_Key__c</code>)</li>
+        <li>A booking number field on <code>Booking__c</code> (e.g., <code>Booking__c.Booking__c</code> or your custom)</li>
+      </ul>
+      <p class="muted">Field/API names are configurable in App Builder.</p>
+    </div>
+    <div class="card">
+      <h3>2) Deploy files</h3>
+      <pre><code>force-app/main/default/classes/VoiceCallBookingKeyLinkController.cls
+force-app/main/default/classes/VoiceCallBookingKeyLinkController.cls-meta.xml
+
+force-app/main/default/lwc/voiceCallBookingKeyLink/voiceCallBookingKeyLink.js
+force-app/main/default/lwc/voiceCallBookingKeyLink/voiceCallBookingKeyLink.html
+force-app/main/default/lwc/voiceCallBookingKeyLink/voiceCallBookingKeyLink.css
+force-app/main/default/lwc/voiceCallBookingKeyLink/voiceCallBookingKeyLink.js-meta.xml</code></pre>
+      <p>Push/deploy with SFDX/Copado/Change Sets as you prefer.</p>
+    </div>
+    <div class="card">
+      <h3>3) Place on page</h3>
+      <p>App Builder → <strong>VoiceCall</strong> record page → drag component &ldquo;<em>Voice Call → Booking Key Link</em>&rdquo; onto layout. Save &amp; Activate.</p>
+    </div>
+    <div class="card">
+      <h3>4) Configure (no code)</h3>
+      <ul>
+        <li><strong>Payload Field API:</strong> <code>VoiceCall.Customer_Entry__c</code></li>
+        <li><strong>Booking Key Lookup Field API:</strong> <code>VoiceCall.Booking_Record__c</code></li>
+        <li><strong>Booking Number Field API (on Booking__c):</strong> <code>Booking__c.Booking__c</code> (or your field)</li>
+        <li><strong>JSON Path: Booking Number:</strong> e.g., <code>bookingNumber</code>, <code>Booking_Number</code>, <code>entities[0].value</code></li>
+        <li><strong>JSON Path: CCN / Contact Id (optional):</strong> e.g., <code>contactId</code>, <code>guest.id</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>JSON path guide</h2>
+  <p>Supported syntax:</p>
+  <ul>
+    <li>Dot notation: <code>a.b.c</code></li>
+    <li>Array indices: <code>a[0].b[2]</code></li>
+  </ul>
+  <p class="muted">Examples: <code>bookingNumber</code>, <code>Booking_Number</code>, <code>guest.id</code>, <code>entities[0].value</code>, <code>meta.keys[2].inner.id</code></p>
+
+  <h2>Configuration matrix</h2>
+  <table>
+    <thead>
+      <tr><th>Scenario</th><th>Booking Number Field API</th><th>JSON Path: Booking #</th><th>JSON Path: CCN/Contact Id</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Flat key</td><td><code>Booking__c.Booking__c</code></td><td><code>bookingNumber</code></td><td><code>contactId</code> or blank</td></tr>
+      <tr><td>Different key name</td><td><code>Booking__c.Booking_Number__c</code></td><td><code>Booking_Number</code></td><td><code>CustomerId</code></td></tr>
+      <tr><td>Value in array</td><td><code>Booking__c.Booking__c</code></td><td><code>entities[0].value</code></td><td><code>guest.ccn</code></td></tr>
+      <tr><td>Nested object</td><td><code>Booking__c.Booking_Code__c</code></td><td><code>meta.booking.code</code></td><td>(blank)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Sample payloads</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Simple</h3>
+      <pre><code>{
+  "bookingNumber": "Z9YX88",
+  "contactId": "1234567890"
+}</code></pre>
+      <p>Set paths → booking: <code>bookingNumber</code>, CCN/Contact: <code>contactId</code></p>
+    </div>
+    <div class="card">
+      <h3>Nested + arrays</h3>
+      <pre><code>{
+  "session": "OMI-20250905-def456",
+  "entities": [{ "value": "Z9YX88" }],
+  "guest": { "id": "1234567890" }
+}</code></pre>
+      <p>Set paths → booking: <code>entities[0].value</code>, CCN/Contact: <code>guest.id</code></p>
+    </div>
+  </div>
+
+  <h2>Troubleshooting</h2>
+  <table>
+    <thead>
+      <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>“No payload found …”</td><td>JSON field empty</td><td>Ensure integration writes JSON into the configured field</td></tr>
+      <tr><td>“Invalid JSON …”</td><td>Malformed JSON</td><td>Validate upstream JSON with a linter; fix source</td></tr>
+      <tr><td>“Missing booking number at path …”</td><td>Wrong JSON path</td><td>Inspect payload; correct path (dot/array syntax)</td></tr>
+      <tr><td>“No Booking__c found …”</td><td>Wrong Booking field/value</td><td>Point component to correct Booking field or adjust upstream value</td></tr>
+      <tr><td>Zero rows listed</td><td>CCN filter too strict</td><td>Clear CCN/Contact Id path to disable filtering and test</td></tr>
+      <tr><td>“Permission to update …”</td><td>FLS on VoiceCall lookup</td><td>Grant update on the lookup field to the target profile/perm set</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Security & limits (summary)</h2>
+  <ul>
+    <li>SOQL uses <code>WITH SECURITY_ENFORCED</code> (respects org security).</li>
+    <li>Before update, checks that the VoiceCall lookup field is updateable.</li>
+    <li>Governor profile: 1 query for VoiceCall, 1 for Booking (LIMIT 1), 1 for Booking Keys; 1 DML on link.</li>
+    <li>Payload: keep within Long Text Area constraints; ensure upstream JSON size fits limits.</li>
+    <li>Null-safety: handles missing payload, invalid JSON, missing keys, out-of-range arrays, no booking match.</li>
+  </ul>
+
+  <h2>Extensibility</h2>
+  <ul>
+    <li><strong>Configurable CCN field:</strong> add a property like <code>accountCcnFieldApi</code> (default <code>Account__r.CCN__c</code>).</li>
+    <li><strong>Alternate target:</strong> write to a different lookup (e.g., relate directly to <code>Booking__c</code>).</li>
+    <li><strong>Post-link automation:</strong> publish a Platform Event or call a Flow when linked.</li>
+    <li><strong>Extra filters:</strong> expose properties to filter by <code>Pax_ID__c</code> or booking status.</li>
+  </ul>
+
+  <h2>Install check (sanity test)</h2>
+  <ol>
+    <li>Open a VoiceCall that has JSON in your configured field.</li>
+    <li>Set Booking path to a value that exists.</li>
+    <li>Page loads → list appears → click <strong>Select</strong> → lookup populated → success toast.</li>
+  </ol>
+
+  <h2>License & attribution</h2>
+  <p>
+    <strong>License:</strong> MIT (or your preference). Free to use/modify. <br />
+    <strong>Disclaimer:</strong> Provided “as-is”; test thoroughly in a sandbox before production.
+  </p>
+
+  <div class="cta">
+    <a href="mailto:hello@yourdomain.com">Contact for customization</a>
+    <a href="https://www.paypal.me/YOURHANDLE" target="_blank" rel="noopener">Donate via PayPal</a>
+    <a href="https://venmo.com/u/YOURHANDLE" target="_blank" rel="noopener">Donate via Venmo</a>
+  </div>
+
+  <footer>
+    <p>Tip: Add this page to your site navigation and submit your sitemap to Google Search Console for indexing.</p>
+  </footer>
+</main>
+</body>
+</html>
