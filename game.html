@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snake Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    #gameCanvas {
+      border: 2px solid #555;
+      /* Make the canvas responsive */
+      max-width: 100%;
+      height: auto;
+    }
+    #scoreboard {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    #message {
+      font-size: 20px;
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Snake Game</h1>
+  <div id="scoreboard">
+    Score: <span id="score">0</span> | High Score: <span id="highScore">0</span>
+  </div>
+  <canvas id="gameCanvas" width="400" height="400"></canvas>
+  <div id="message"></div>
+  
+  <script>
+    (function() {
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreElem = document.getElementById('score');
+      const highScoreElem = document.getElementById('highScore');
+      const messageElem = document.getElementById('message');
+      
+      const tileCount = 20;
+      const tileSize = canvas.width / tileCount;
+      let snake, food;
+      let dx, dy;
+      let score, highScore;
+      let running = false;
+      let gameOver = false;
+      let gameLoop;  // will hold the interval ID
+      
+      // Load high score from localStorage or default to 0
+      highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
+      highScoreElem.textContent = highScore;
+      
+      // Initialize or reset the game state
+      function initGame() {
+        // Snake starts with 3 segments centered in the grid
+        const startX = Math.floor(tileCount / 2);
+        const startY = Math.floor(tileCount / 2);
+        snake = [
+          { x: startX,     y: startY },
+          { x: startX - 1, y: startY },
+          { x: startX - 2, y: startY }
+        ];
+        dx = 1; dy = 0;  // initial movement direction (right)
+        score = 0;
+        scoreElem.textContent = score;
+        gameOver = false;
+        running = false;
+        placeFood();      // put the first food on the canvas
+        drawGame();       // render initial state
+        messageElem.textContent = 'Press an arrow key to start';
+      }
+      
+      // Place food at a random position not occupied by the snake
+      function placeFood() {
+        do {
+          food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+          };
+          // Loop until we find an empty cell
+        } while (snake.some(segment => segment.x === food.x && segment.y === food.y));
+      }
+      
+      // Draw the snake, food, and background
+      function drawGame() {
+        // Clear the canvas (fill with white background)
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Draw the snake segments
+        snake.forEach((segment, index) => {
+          ctx.fillStyle = (index === 0) ? '#228822' : '#33aa33';  // head is darker
+          ctx.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize, tileSize);
+        });
+        // Draw the food as a red circle
+        ctx.fillStyle = '#dd3333';
+        ctx.beginPath();
+        ctx.arc(food.x * tileSize + tileSize/2, food.y * tileSize + tileSize/2, tileSize/2, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      
+      // Update game state for each tick of the game loop
+      function updateGame() {
+        // Compute new head position
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+        
+        // Check wall collisions (game over if snake hits boundaries)
+        if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+          endGame();
+          return;
+        }
+        // Check self-collision (if new head overlaps any existing segment)
+        if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
+          endGame();
+          return;
+        }
+        
+        // Move snake: add new head
+        snake.unshift(head);
+        // Check if food is eaten
+        if (head.x === food.x && head.y === food.y) {
+          score++;
+          scoreElem.textContent = score;
+          // Update high score if this score is greater
+          if (score > highScore) {
+            highScore = score;
+            highScoreElem.textContent = highScore;
+            localStorage.setItem('snakeHighScore', highScore);
+          }
+          placeFood();
+        } else {
+          // Remove the last segment (snake moves forward)
+          snake.pop();
+        }
+        
+        // Redraw everything
+        drawGame();
+      }
+      
+      // Handle game over state
+      function endGame() {
+        clearInterval(gameLoop);   // stop the game loop
+        running = false;
+        gameOver = true;
+        messageElem.textContent = 'Game Over! Press any key to restart';
+      }
+      
+      // Keyboard controls
+      document.addEventListener('keydown', function(event) {
+        const key = event.key;
+        if (!running) {
+          // If game is not running (either not started or after game over)
+          if (gameOver) {
+            // On game over, any key press will reset the game
+            initGame();
+            // If the key pressed is an arrow, optionally start immediately in that direction
+            if (key.startsWith('Arrow')) {
+              // Prevent immediate reverse start (ignore left if snake default is right)
+              if (key === 'ArrowLeft') {
+                // If left was pressed to restart, we ignore it and keep default (right)
+              } else {
+                setDirection(key);
+              }
+              startGameLoop();
+            }
+            // If a non-arrow key was pressed to restart, we just reset and wait for an arrow to start
+          } else {
+            // Game not started yet (initial state), wait for an arrow key to begin
+            if (key.startsWith('Arrow')) {
+              if (key === 'ArrowLeft') {
+                return; // disallow starting in opposite direction of default (right)
+              }
+              setDirection(key);
+              startGameLoop();
+            }
+          }
+        } else {
+          // Game is currently running, change direction based on arrow keys (if not opposite direction)
+          if (key === 'ArrowUp' && dy !== 1)    { dx = 0;  dy = -1; }
+          else if (key === 'ArrowDown' && dy !== -1) { dx = 0;  dy = 1; }
+          else if (key === 'ArrowLeft' && dx !== 1)  { dx = -1; dy = 0; }
+          else if (key === 'ArrowRight' && dx !== -1){ dx = 1;  dy = 0; }
+        }
+      });
+      
+      // Helper to set direction based on arrow key
+      function setDirection(key) {
+        if (key === 'ArrowUp')    { dx = 0;  dy = -1; }
+        if (key === 'ArrowDown')  { dx = 0;  dy = 1; }
+        if (key === 'ArrowLeft')  { dx = -1; dy = 0; }
+        if (key === 'ArrowRight') { dx = 1;  dy = 0; }
+      }
+      
+      // Start the game loop interval
+      function startGameLoop() {
+        messageElem.textContent = '';      // clear any message
+        running = true;
+        gameLoop = setInterval(updateGame, 100);  // update game 10 times per second (100 ms interval)
+      }
+      
+      // Launch initial game setup on page load
+      initGame();
+    })();
+  </script>
+</body>
+</html>
