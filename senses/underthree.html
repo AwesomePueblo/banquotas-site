@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Pocket Quest — Mobile Adventure</title>
+<style>
+  :root{
+    --accent:#007BA7; /* cerulean */
+    --bg:#0e0f13;
+    --panel:#131722;
+    --ink:#eaf2f7;
+    --muted:#9fb3c8;
+    --danger:#ff5a5f;
+    --ok:#24d17e;
+    --shadow:0 12px 28px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); display:flex; align-items:center; justify-content:center;
+  }
+  .wrap{width:100%; max-width:840px; padding:14px;}
+  .card{
+    background:var(--panel); border:1px solid rgba(255,255,255,.07); border-radius:16px;
+    padding:12px; box-shadow:var(--shadow);
+  }
+  header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;}
+  h1{font-size:18px; margin:0; display:flex; gap:8px; align-items:center}
+  .badge{background:var(--accent); color:#fff; font-size:12px; padding:2px 8px; border-radius:999px}
+  .hud{display:flex; gap:10px; flex-wrap:wrap}
+  .pill{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:6px 10px; border-radius:12px; font-size:14px}
+  .game{
+    position:relative; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.09);
+    background:#000; aspect-ratio: 16 / 10; /* responsive canvas wrapper */
+  }
+  canvas{width:100%; height:100%; display:block; image-rendering: pixelated; touch-action:none}
+  .overlay{
+    position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:space-between; padding:10px; pointer-events:none;
+  }
+  .controls{display:flex; gap:12px; align-items:center}
+  .pad{
+    pointer-events:auto; position:relative; width:170px; height:170px; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+    opacity:.95;
+  }
+  .pad .ring{
+    position:absolute; inset:0; border-radius:50%; border:2px solid rgba(255,255,255,.18); background:rgba(255,255,255,.05);
+  }
+  .pad .stick{
+    position:absolute; width:72px; height:72px; border-radius:50%;
+    left:49px; top:49px; transform:translate(0,0);
+    background:linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.07));
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .buttons{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; width:200px}
+  .btn{
+    pointer-events:auto; user-select:none; touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+    background:var(--accent); color:#fff; font-weight:700; font-size:16px; border:none; border-radius:14px; padding:12px 0;
+    box-shadow:0 8px 18px rgba(0,123,167,.35);
+  }
+  .btn.alt{background:transparent; border:1px solid rgba(255,255,255,.2)}
+  .toast{
+    position:absolute; left:50%; top:10px; transform:translateX(-50%);
+    background:rgba(0,0,0,.65); border:1px solid rgba(255,255,255,.15); color:#fff; padding:8px 12px; border-radius:999px; font-size:14px;
+    pointer-events:none; opacity:0; transition:opacity .25s ease;
+  }
+  .toast.show{opacity:1}
+  /* Dialog panel */
+  .dialog{
+    position:absolute; left:8px; right:8px; bottom:8px; background:rgba(19,23,34,.96);
+    border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:10px; display:none;
+  }
+  .dialog.show{display:block}
+  .dialog .name{font-weight:800; color:var(--accent); font-size:14px; margin-bottom:6px}
+  .dialog .text{font-size:15px; color:var(--ink)}
+  .dialog .tip{font-size:12px; color:var(--muted); margin-top:6px}
+  /* Inventory */
+  .inv{
+    position:absolute; right:8px; top:8px; background:rgba(19,23,34,.97); border:1px solid rgba(255,255,255,.14);
+    border-radius:12px; padding:8px; display:none; min-width:150px;
+  }
+  .inv.show{display:block}
+  .inv h3{margin:0 0 6px; font-size:14px}
+  .inv .slot{display:flex; justify-content:space-between; border-bottom:1px dashed rgba(255,255,255,.08); padding:4px 0; font-size:14px}
+  .inv .empty{color:var(--muted); font-style:italic}
+  /* Pause panel */
+  .pause{
+    position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.55);
+  }
+  .pause.show{display:flex}
+  .pause .panel{
+    background:var(--panel); border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:14px; width:min(90%,420px);
+  }
+  .row{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+  .row .pill{margin:6px 0}
+  /* Helper text */
+  .help{font-size:12px; color:var(--muted); margin-top:8px}
+  @media (max-width:420px){ .buttons{width:170px} .pad{width:150px; height:150px} .pad .stick{width:66px;height:66px;left:42px;top:42px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <header>
+      <h1>Pocket Quest <span class="badge">Mobile Adventure</span></h1>
+      <div class="hud">
+        <div class="pill">Area: <strong id="ui-area">Overworld</strong></div>
+        <div class="pill">HP: <strong id="ui-hp">5</strong></div>
+        <div class="pill">Relics: <strong id="ui-relics">0/3</strong></div>
+        <div class="pill">Time: <strong id="ui-time">00:00</strong></div>
+      </div>
+    </header>
+
+    <div class="game" id="game">
+      <canvas id="cv" width="640" height="400" aria-label="Adventure canvas"></canvas>
+
+      <div class="overlay">
+        <div class="controls">
+          <div class="pad" id="pad" aria-label="Virtual joystick">
+            <div class="ring"></div>
+            <div class="stick" id="stick"></div>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="buttons">
+            <button class="btn" id="btnA" aria-label="Action">A</button>
+            <button class="btn alt" id="btnB" aria-label="Menu">B</button>
+            <button class="btn alt" id="btnPause" aria-label="Pause">Pause</button>
+            <button class="btn alt" id="btnSave" aria-label="Save">Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog" id="dialog">
+        <div class="name" id="dlgName">Guide</div>
+        <div class="text" id="dlgText">Welcome to Pocket Quest.</div>
+        <div class="tip">Tap A to continue</div>
+      </div>
+
+      <div class="inv" id="inv">
+        <h3>Inventory</h3>
+        <div id="invList"></div>
+      </div>
+
+      <div class="pause" id="pause">
+        <div class="panel">
+          <h2 style="margin:0 0 8px">Game Paused</h2>
+          <div class="row">
+            <div class="pill">HP: <strong id="p-hp">5</strong></div>
+            <div class="pill">Relics: <strong id="p-rel">0/3</strong></div>
+            <div class="pill">Area: <strong id="p-area">Overworld</strong></div>
+          </div>
+          <div class="help">Use the joystick to move. A = interact/confirm, B = inventory. Collect 3 relics to open the ancient gate.</div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" id="btnResume">Resume</button>
+            <button class="btn alt" id="btnReset">Reset</button>
+            <button class="btn alt" id="btnWipe">Wipe Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast">Saved</div>
+    </div>
+
+    <div class="help">Mobile-optimized: virtual joystick, large buttons, haptics on actions (where supported), persistent save via localStorage.</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /*** -------------------------------------------------------------
+   *  ENGINE BASICS
+   * --------------------------------------------------------------*/
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const ui = {
+    area: document.getElementById('ui-area'),
+    hp: document.getElementById('ui-hp'),
+    relics: document.getElementById('ui-relics'),
+    time: document.getElementById('ui-time'),
+    inv: document.getElementById('inv'),
+    invList: document.getElementById('invList'),
+    dlg: document.getElementById('dialog'),
+    dlgName: document.getElementById('dlgName'),
+    dlgText: document.getElementById('dlgText'),
+    pause: document.getElementById('pause'),
+    toast: document.getElementById('toast'),
+    p_hp: document.getElementById('p-hp'),
+    p_rel: document.getElementById('p-rel'),
+    p_area: document.getElementById('p-area'),
+  };
+
+  const LS_KEY = 'pocket_quest_save_v1';
+
+  const rand = (n)=> Math.floor(Math.random()*n);
+  const clamp = (v,a,b)=> v<a?a: v>b?b: v;
+  const lerp = (a,b,t)=> a + (b-a)*t;
+  const now = ()=> performance.now();
+
+  const VIB = (ms)=> { try{ if(navigator.vibrate) navigator.vibrate(ms);}catch(e){} };
+
+  /*** -------------------------------------------------------------
+   *  WORLD & MAP
+   * --------------------------------------------------------------*/
+  // Tile size and simple tileset colors
+  const TS = 32; // tile size
+  const T = {
+    VOID: 0, GRASS: 1, WATER: 2, SAND:3, ROCK:4, TREE:5, DOOR:6, RELIC:7, SIGN:8, CAVE:9, FLOOR:10, WALL:11, GATE:12
+  };
+
+  const COLORS = {
+    [T.VOID]:'#000',
+    [T.GRASS]:'#2b7a28',
+    [T.WATER]:'#2357ad',
+    [T.SAND]:'#c2ae64',
+    [T.ROCK]:'#6f6f6f',
+    [T.TREE]:'#1d4d1c',
+    [T.DOOR]:'#8b5a2b',
+    [T.RELIC]:'#ffd166',
+    [T.SIGN]:'#8b7e66',
+    [T.CAVE]:'#2b2b38',
+    [T.FLOOR]:'#273142',
+    [T.WALL]:'#1b2330',
+    [T.GATE]:'#8e9bb3',
+  };
+
+  function drawTile(x,y,t){
+    ctx.fillStyle = COLORS[t] || '#fff';
+    ctx.fillRect(x*TS, y*TS, TS, TS);
+
+    // simple detailing
+    if (t===T.WATER){
+      ctx.fillStyle='rgba(255,255,255,.15)'; ctx.fillRect(x*TS+8,y*TS+4,16,3);
+    } else if (t===T.GRASS){
+      ctx.fillStyle='rgba(0,0,0,.08)'; ctx.fillRect(x*TS+rand(16),y*TS+rand(16),4,4);
+    } else if (t===T.RELIC){
+      ctx.strokeStyle='#ffd166'; ctx.lineWidth=2; ctx.strokeRect(x*TS+8,y*TS+8,TS-16,TS-16);
+      ctx.fillStyle='#ffeaa7'; ctx.fillRect(x*TS+12,y*TS+12,TS-24,TS-24);
+    } else if (t===T.GATE){
+      ctx.fillStyle='#6c7a94'; ctx.fillRect(x*TS+6,y*TS+4,TS-12,TS-8);
+      ctx.fillStyle='#a7b5d4'; ctx.fillRect(x*TS+10,y*TS+10,TS-20,TS-18);
+    } else if (t===T.SIGN){
+      ctx.fillStyle='#d8c49c'; ctx.fillRect(x*TS+12,y*TS+8,TS-24,TS-18);
+      ctx.fillStyle='#6b5b3c'; ctx.fillRect(x*TS+15,y*TS+22,TS-30,3);
+    }
+  }
+
+  // Simple map builder utilities
+  function blankMap(w,h,fill=T.GRASS){
+    const g = new Array(h).fill(0).map(()=> new Array(w).fill(fill));
+    return { w, h, g };
+  }
+  function box(map, x,y,w,h,t){
+    for(let j=0;j<h;j++){
+      for(let i=0;i<w;i++){
+        const xi=x+i, yj=y+j;
+        if (xi>=0&&yi>=0&&xi<map.w&&yj<map.h){
+          map.g[yj][xi]=t;
+        }
+      }
+    }
+  }
+  function border(map,t){
+    for(let x=0;x<map.w;x++){ map.g[0][x]=t; map.g[map.h-1][x]=t; }
+    for(let y=0;y<map.h;y++){ map.g[y][0]=t; map.g[y][map.w-1]=t; }
+  }
+
+  // Overworld and Cave maps (grid of tile ids)
+  const overworld = (() => {
+    const M = blankMap(20,12,T.GRASS);
+    border(M,T.ROCK);
+    // Water pond
+    for(let y=3;y<=6;y++){ for(let x=2;x<=5;x++){ M.g[y][x]=T.WATER; } }
+    // Sandy shore
+    for(let y=2;y<=7;y++){ M.g[y][6]=T.SAND; }
+    // Trees
+    const trees = [[9,2],[10,2],[9,3],[13,3],[14,3],[15,4],[8,7],[15,8],[16,8],[17,9]];
+    trees.forEach(([x,y])=> M.g[y][x]=T.TREE);
+    // Signs & cave
+    M.g[1][2]=T.SIGN; // tutorial sign
+    M.g[10][9]=T.CAVE; // cave entrance
+    // Relics scattered
+    M.g[2][12]=T.RELIC;
+    M.g[8][15]=T.RELIC;
+    // Gate to the east, opens after 3 relics
+    for(let y=4;y<=7;y++){ M.g[y][18]=T.GATE; }
+    // Door (house)
+    M.g[9][2]=T.DOOR;
+    return M;
+  })();
+
+  const cave = (() => {
+    const M = blankMap(16,10,T.FLOOR);
+    border(M,T.WALL);
+    // Walls maze-ish
+    for(let x=3;x<13;x++){ M.g[3][x]=T.WALL; }
+    for(let x=3;x<13;x++){ if (x!==8) M.g[6][x]=T.WALL; } // passage at 8
+    M.g[8][8]=T.RELIC; // final relic
+    // Exit back to overworld
+    M.g[9][8]=T.DOOR;
+    return M;
+  })();
+
+  /*** -------------------------------------------------------------
+   *  ENTITIES
+   * --------------------------------------------------------------*/
+  class Entity {
+    constructor(x,y){ this.x=x; this.y=y; this.w=TS; this.h=TS; this.z=0; this.dead=false; }
+    draw() {}
+    update(dt){}
+    hitbox(){ return {x:this.x, y:this.y, w:this.w, h:this.h}; }
+  }
+
+  class Player extends Entity {
+    constructor(x,y){
+      super(x,y); this.speed=140; this.hp=5; this.maxhp=5;
+      this.vx=0; this.vy=0; this.dir='down'; this.name='Hero';
+      this.inv = { relics:0, items:[] };
+      this.iFrames=0; // invulnerability timer
+    }
+    draw(){
+      // simple pixel avatar
+      const px = Math.round(this.x), py = Math.round(this.y);
+      // shadow
+      ctx.fillStyle='rgba(0,0,0,.35)'; ctx.beginPath();
+      ctx.ellipse(px+TS/2, py+TS-6, 10,4, 0, 0, Math.PI*2); ctx.fill();
+
+      // body
+      ctx.fillStyle='#ffd166'; // head
+      ctx.fillRect(px+12, py+6, 8,8);
+      ctx.fillStyle='#5c7cfa'; // torso
+      ctx.fillRect(px+9, py+14, 14,12);
+      ctx.fillStyle='#2b2d42'; // legs
+      ctx.fillRect(px+10, py+26, 6,6); ctx.fillRect(px+18, py+26, 6,6);
+
+      // damage tint
+      if (this.iFrames>0){
+        ctx.fillStyle='rgba(255,90,95,.35)';
+        ctx.fillRect(px,py,TS,TS);
+      }
+    }
+    update(dt, input, map){
+      const ax = input.ax, ay = input.ay;
+      this.vx = ax * this.speed;
+      this.vy = ay * this.speed;
+      if (Math.abs(ax) > Math.abs(ay)){
+        if (ax<0) this.dir='left'; else if (ax>0) this.dir='right';
+      } else if (Math.abs(ay)>0){
+        if (ay<0) this.dir='up'; else this.dir='down';
+      }
+      // attempt move with collision
+      const nx = this.x + this.vx * dt;
+      const ny = this.y + this.vy * dt;
+      const bb = {x:nx, y:this.y, w:this.w, h:this.h};
+      if (!collidesMap(bb, map)) this.x = nx;
+      const bb2 = {x:this.x, y:ny, w:this.w, h:this.h};
+      if (!collidesMap(bb2, map)) this.y = ny;
+
+      if (this.iFrames>0) this.iFrames -= dt;
+    }
+    damage(n){
+      if (this.iFrames>0) return;
+      this.hp = Math.max(0, this.hp - n);
+      this.iFrames = 1.0;
+      VIB(15);
+      showToast(`Ouch! -${n}`, 700);
+      if (this.hp<=0){ gameOver(); }
+      updateUI();
+    }
+  }
+
+  class NPC extends Entity {
+    constructor(x,y,name,lines){
+      super(x*TS, y*TS); this.name=name; this.lines=lines.slice(); this.idx=0;
+    }
+    draw(){
+      const px=this.x, py=this.y;
+      ctx.fillStyle='#c6d0f5'; ctx.fillRect(px+10,py+10,12,12);
+      ctx.fillStyle='#8ecae6'; ctx.fillRect(px+8,py+22,16,8);
+    }
+    talk(){
+      const text = this.lines[this.idx] || this.lines[this.lines.length-1];
+      ui.dlgName.textContent = this.name;
+      ui.dlgText.textContent = text;
+      ui.dlg.classList.add('show');
+      this.idx = Math.min(this.lines.length-1, this.idx+1);
+    }
+  }
+
+  /*** -------------------------------------------------------------
+   *  COLLISION & INTERACTION
+   * --------------------------------------------------------------*/
+  function tileAt(map, x,y){
+    const tx = Math.floor(x/TS), ty = Math.floor(y/TS);
+    if (tx<0||ty<0||tx>=map.w||ty>=map.h) return T.VOID;
+    return map.g[ty][tx];
+  }
+  function solid(t){
+    return t===T.ROCK || t===T.TREE || t===T.WALL || t===T.WATER || t===T.GATE;
+  }
+  function collidesMap(bb, map){
+    const corners = [
+      [bb.x+2, bb.y+2],
+      [bb.x+bb.w-2, bb.y+2],
+      [bb.x+2, bb.y+bb.h-2],
+      [bb.x+bb.w-2, bb.y+bb.h-2]
+    ];
+    for(const [cx,cy] of corners){
+      const t = tileAt(map,cx,cy);
+      if (solid(t)) return true;
+    }
+    return false;
+  }
+  function interactAt(map, px, py){
+    const tx=Math.floor(px/TS), ty=Math.floor(py/TS);
+    const t = (map.g[ty]||[])[tx];
+    return {t, tx, ty};
+  }
+
+  /*** -------------------------------------------------------------
+   *  GAME STATE
+   * --------------------------------------------------------------*/
+  let current = 'overworld';
+  let map = overworld;
+  let player = new Player(5*TS, 8*TS);
+  let entities = [];
+
+  // NPCs
+  const guide = new NPC(2,1, 'Guide', [
+    "Welcome to Pocket Quest.",
+    "Collect the three relics scattered around.",
+    "The gate to the east will open once you have them.",
+    "The cave below the hill holds the last relic."
+  ]);
+  entities.push(guide);
+
+  const notes = {
+    gateClosed: "The gate is sealed. 'Bring me three glimmers of the past.'",
+    foundRelic:"You found a relic!",
+    caveHint: "A cold breeze flows from the cave...",
+  };
+
+  const session = {
+    startTime: performance.now(),
+    relics: 0,
+    openedGate:false,
+    gotRelic: { a:false, b:false, c:false },
+    inDialog:false,
+    showInventory:false,
+    paused:false,
+  };
+
+  function updateUI(){
+    ui.area.textContent = current==='overworld' ? 'Overworld' : 'Cave';
+    ui.hp.textContent = player.hp;
+    ui.relics.textContent = `${session.relics}/3`;
+    ui.p_hp.textContent = player.hp;
+    ui.p_rel.textContent = `${session.relics}/3`;
+    ui.p_area.textContent = ui.area.textContent;
+  }
+  function updateTime(){
+    const sec = Math.floor((performance.now()-session.startTime)/1000);
+    const mm = String(Math.floor(sec/60)).padStart(2,'0');
+    const ss = String(sec%60).padStart(2,'0');
+    ui.time.textContent = `${mm}:${ss}`;
+  }
+
+  /*** -------------------------------------------------------------
+   *  RENDERING
+   * --------------------------------------------------------------*/
+  function drawMap(map){
+    for(let y=0;y<map.h;y++){
+      for(let x=0;x<map.w;x++){
+        drawTile(x,y, map.g[y][x]);
+      }
+    }
+  }
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawMap(map);
+    // Entities
+    for(const e of entities){ e.draw(); }
+    // Player
+    player.draw();
+  }
+
+  /*** -------------------------------------------------------------
+   *  GAME LOOP
+   * --------------------------------------------------------------*/
+  let last = performance.now();
+  function loop(t){
+    const dt = Math.min(0.033, (t-last)/1000);
+    last = t;
+    if (!session.paused){
+      player.update(dt, input, map);
+      updateTime();
+    }
+    render();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  /*** -------------------------------------------------------------
+   *  INPUT: VIRTUAL JOYSTICK + BUTTONS + KEYS
+   * --------------------------------------------------------------*/
+  const pad = document.getElementById('pad');
+  const stick = document.getElementById('stick');
+  const btnA = document.getElementById('btnA');
+  const btnB = document.getElementById('btnB');
+  const btnSave = document.getElementById('btnSave');
+  const btnPause = document.getElementById('btnPause');
+  const btnResume = document.getElementById('btnResume');
+  const btnReset = document.getElementById('btnReset');
+  const btnWipe = document.getElementById('btnWipe');
+
+  const input = { ax:0, ay:0 };
+
+  function setStick(dx,dy){
+    const R = (pad.clientWidth/2) - 36; // ring radius minus stick radius
+    const m = Math.hypot(dx,dy);
+    const nx = (m>R? R/m:1)*dx, ny = (m>R? R/m:1)*dy;
+    stick.style.transform = `translate(${nx}px, ${ny}px)`;
+    // normalize to [-1,1]
+    input.ax = clamp(nx/R, -1, 1);
+    input.ay = clamp(ny/R, -1, 1);
+  }
+  function resetStick(){
+    stick.style.transform = `translate(0,0)`; input.ax=0; input.ay=0;
+  }
+
+  let dragging=false, startPos=null;
+  function padPos(e){
+    const r = pad.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    const x = (e.clientX??(e.touches&&e.touches[0].clientX)) - cx;
+    const y = (e.clientY??(e.touches&&e.touches[0].clientY)) - cy;
+    return {x,y};
+  }
+  pad.addEventListener('pointerdown', e=>{
+    dragging=true; pad.setPointerCapture(e.pointerId);
+    const {x,y} = padPos(e); setStick(x,y);
+  });
+  pad.addEventListener('pointermove', e=>{
+    if(!dragging) return; const {x,y}=padPos(e); setStick(x,y);
+  });
+  pad.addEventListener('pointerup', e=>{
+    dragging=false; resetStick();
+  });
+  pad.addEventListener('pointercancel', ()=>{ dragging=false; resetStick(); });
+
+  // Buttons
+  btnA.addEventListener('click', ()=>{ action(); });
+  btnB.addEventListener('click', ()=>{ toggleInventory(); });
+  btnSave.addEventListener('click', ()=>{ saveGame(); });
+  btnPause.addEventListener('click', ()=>{ togglePause(); });
+  btnResume.addEventListener('click', ()=>{ togglePause(false); });
+  btnReset.addEventListener('click', ()=>{ hardReset(); });
+  btnWipe.addEventListener('click', ()=>{ wipeSave(); });
+
+  // Keyboard fallback (desktop)
+  const keys = {};
+  window.addEventListener('keydown', e=>{
+    keys[e.key]=true;
+    if (e.key==='z' || e.key==='Enter') action();
+    if (e.key==='x' || e.key==='i') toggleInventory();
+    if (e.key==='Escape' || e.key==='p') togglePause();
+  });
+  window.addEventListener('keyup', e=>{ keys[e.key]=false; });
+  function pollKeys(){
+    const ax = (keys['ArrowRight']?1:0) - (keys['ArrowLeft']?1:0);
+    const ay = (keys['ArrowDown']?1:0) - (keys['ArrowUp']?1:0);
+    input.ax = ax; input.ay = ay;
+    requestAnimationFrame(pollKeys);
+  }
+  pollKeys();
+
+  /*** -------------------------------------------------------------
+   *  INTERACTIONS & GAMEPLAY
+   * --------------------------------------------------------------*/
+  function talkToNearest(){
+    const px = player.x+TS/2, py=player.y+TS/2;
+    for(const e of entities){
+      if (e instanceof NPC){
+        const dx = Math.abs(e.x+TS/2 - px), dy = Math.abs(e.y+TS/2 - py);
+        if (dx < TS && dy < TS){
+          e.talk(); session.inDialog=true; return true;
+        }
+      }
+    }
+    return false;
+  }
+  function closeDialog(){ ui.dlg.classList.remove('show'); session.inDialog=false; }
+
+  function action(){
+    if (session.paused) return;
+    if (session.inDialog){ closeDialog(); return; }
+    // talk if NPC near
+    if (talkToNearest()){ VIB(10); return; }
+
+    // interact with tile in front
+    const front = { x: player.x+TS/2, y: player.y+TS/2 };
+    if (player.dir==='up') front.y -= TS/2; else if (player.dir==='down') front.y += TS/2;
+    else if (player.dir==='left') front.x -= TS/2; else front.x += TS/2;
+
+    const {t, tx, ty} = interactAt(map, front.x, front.y);
+
+    if (t===T.SIGN){
+      say("Sign", "Use the joystick to move. A interacts. B opens your inventory. Gather 3 relics to open the gate east.");
+      return;
+    }
+    if (t===T.RELIC){
+      map.g[ty][tx]= current==='overworld'? T.GRASS : T.FLOOR;
+      session.relics = Math.min(3, session.relics+1);
+      VIB(20);
+      say("Relic", notes.foundRelic);
+      if (session.relics>=3 && current==='overworld'){ openGate(); }
+      updateUI();
+      return;
+    }
+    if (t===T.CAVE && current==='overworld'){
+      // enter cave
+      changeArea('cave', 8*TS, 8*TS);
+      say("Guide", notes.caveHint);
+      return;
+    }
+    if (t===T.DOOR){
+      if (current==='overworld'){
+        say("Door","It's locked. Looks like it hasn't been used in years.");
+      } else {
+        // door at cave bottom returns to overworld entrance
+        changeArea('overworld', 10*TS, 9*TS);
+      }
+      return;
+    }
+    if (t===T.GATE){
+      if (session.relics>=3 && session.openedGate){
+        // Gate acts as passage after open
+        say("Gate","With a deep rumble, the way forward lies open...");
+      } else {
+        say("Gate", notes.gateClosed);
+      }
+      return;
+    }
+
+    // push on gate after open? nothing else here
+  }
+
+  function toggleInventory(force){
+    const now = (force===undefined) ? !session.showInventory : !!force;
+    session.showInventory = now;
+    ui.inv.classList.toggle('show', now);
+    renderInventory();
+  }
+  function renderInventory(){
+    const list = ui.invList;
+    list.innerHTML='';
+    const rel = document.createElement('div');
+    rel.className='slot';
+    rel.innerHTML = `<span>Relics</span><strong>${session.relics}/3</strong>`;
+    list.appendChild(rel);
+    if (player.inv.items.length===0){
+      const em = document.createElement('div');
+      em.className='empty'; em.textContent='(empty pockets)';
+      list.appendChild(em);
+    } else {
+      player.inv.items.forEach(it=>{
+        const row = document.createElement('div'); row.className='slot';
+        row.innerHTML=`<span>${it.name}</span><strong>${it.qty||1}</strong>`;
+        list.appendChild(row);
+      });
+    }
+  }
+
+  function say(name,text){
+    ui.dlgName.textContent = name;
+    ui.dlgText.textContent = text;
+    ui.dlg.classList.add('show');
+    session.inDialog=true;
+  }
+
+  function openGate(){
+    session.openedGate = true;
+    // convert gate tiles to sand (walkable)
+    for(let y=0;y<overworld.h;y++){
+      for(let x=0;x<overworld.w;x++){
+        if (overworld.g[y][x]===T.GATE) overworld.g[y][x]=T.SAND;
+      }
+    }
+    showToast("You hear a gate open in the east...", 1600);
+  }
+
+  function changeArea(where, px, py){
+    current = where;
+    map = (where==='overworld')? overworld : cave;
+    player.x = px; player.y = py;
+    updateUI();
+  }
+
+  function gameOver(){
+    session.paused=true;
+    say("Fate", "You fall to the ground... <A> try again");
+    // soft reset on next A
+    const prev = action;
+    action = function(){
+      closeDialog();
+      action = prev;
+      hardReset();
+    };
+  }
+
+  function hardReset(){
+    // reset state, keep time
+    session.relics=0; session.openedGate=false;
+    session.gotRelic = {a:false,b:false,c:false};
+    player.hp=player.maxhp; player.x=5*TS; player.y=8*TS; player.iFrames=0;
+    // restore maps
+    const r1=[2,12], r2=[8,15], r3=[8,8]; // relic coords per map
+    overworld.g[2][12]=T.RELIC; overworld.g[8][15]=T.RELIC;
+    // restore gate
+    for(let y=0;y<overworld.h;y++){
+      for(let x=0;x<overworld.w;x++){
+        if (overworld.g[y][x]===T.SAND && x===18 && y>=4 && y<=7) overworld.g[y][x]=T.GATE;
+      }
+    }
+    cave.g[8][8]=T.RELIC;
+    changeArea('overworld', 5*TS, 8*TS);
+    toggleInventory(false);
+    ui.dlg.classList.remove('show');
+    session.inDialog=false; session.paused=false;
+    updateUI();
+    showToast("New journey begins.", 900);
+  }
+
+  /*** -------------------------------------------------------------
+   *  SAVE / LOAD
+   * --------------------------------------------------------------*/
+  function saveGame(){
+    const data = {
+      current,
+      player:{ x:player.x, y:player.y, hp:player.hp },
+      session:{ relics:session.relics, openedGate:session.openedGate, startTime: session.startTime },
+      maps:{
+        overworld: overworld.g,
+        cave: cave.g
+      }
+    };
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      showToast('Saved', 800);
+      VIB(8);
+    } catch(e){
+      showToast('Save failed', 1200, true);
+    }
+  }
+  function loadGame(){
+    try{
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      current = data.current || 'overworld';
+      player.x = data.player?.x ?? 5*TS;
+      player.y = data.player?.y ?? 8*TS;
+      player.hp = data.player?.hp ?? player.maxhp;
+      session.relics = data.session?.relics ?? 0;
+      session.openedGate = !!data.session?.openedGate;
+      if (data.session?.startTime) session.startTime = data.session.startTime;
+      // restore maps
+      if (Array.isArray(data.maps?.overworld)) overworld.g = data.maps.overworld;
+      if (Array.isArray(data.maps?.cave)) cave.g = data.maps.cave;
+      map = current==='overworld' ? overworld : cave;
+      updateUI();
+      showToast('Loaded save', 900);
+      return true;
+    } catch(e){ return false; }
+  }
+  function wipeSave(){
+    localStorage.removeItem(LS_KEY);
+    showToast('Save wiped', 900);
+  }
+
+  /*** -------------------------------------------------------------
+   *  UI PANELS / TOAST
+   * --------------------------------------------------------------*/
+  function togglePause(force){
+    const val = (force===undefined) ? !session.paused : !!force;
+    session.paused = val;
+    ui.pause.classList.toggle('show', val);
+    if (!val) { ui.dlg.classList.remove('show'); session.inDialog=false; }
+  }
+  let toastTimer=null;
+  function showToast(msg, dur=1000, danger=false){
+    ui.toast.textContent = msg;
+    ui.toast.style.borderColor = danger? 'rgba(255,90,95,.5)' : 'rgba(255,255,255,.15)';
+    ui.toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> ui.toast.classList.remove('show'), dur);
+  }
+
+  /*** -------------------------------------------------------------
+   *  HAZARDS (simple)
+   * --------------------------------------------------------------*/
+  // Water hurts lightly if you step on it (in overworld)
+  setInterval(()=>{
+    if (session.paused) return;
+    if (current!=='overworld') return;
+    const t = tileAt(map, player.x+TS/2, player.y+TS/2);
+    if (t===T.WATER){ player.damage(1); }
+  }, 900);
+
+  /*** -------------------------------------------------------------
+   *  INIT
+   * --------------------------------------------------------------*/
+  // Try to load existing save, otherwise start fresh with a welcome
+  if (!loadGame()){
+    say("Guide","Welcome! Collect 3 relics. A = interact, B = inventory. Good luck!");
+    setTimeout(()=>{ /* auto close intro on first action */ }, 0);
+  }
+  updateUI();
+
+})();
+</script>
+</body>
+</html>
