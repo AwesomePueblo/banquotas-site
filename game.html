@@ -1,210 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Snake Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 20px;
-    }
-    #gameCanvas {
-      border: 2px solid #555;
-      /* Make the canvas responsive */
-      max-width: 100%;
-      height: auto;
-    }
-    #scoreboard {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-    #message {
-      font-size: 20px;
-      color: red;
-      margin-top: 10px;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Whack-a-Meteors</title>
+<style>
+  :root { --accent: #007BA7; /* cerulean */ --bg:#0b0f14; --card:#121820; --text:#eaf2f7; --hit:#24d17e; --miss:#ff5a5f; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+  .wrap { max-width: 540px; margin: 24px auto; padding: 16px; }
+  .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+  h1 { font-size: 22px; margin: 0 0 12px; display:flex; gap:8px; align-items:center; }
+  .badge { font-size: 12px; color:#fff; background: var(--accent); padding: 2px 8px; border-radius: 999px; }
+  .hud { display:flex; justify-content: space-between; gap: 12px; margin: 8px 0 14px; flex-wrap: wrap; }
+  .hud .pill { background: rgba(255,255,255,.06); padding: 8px 10px; border-radius: 12px; min-width: 90px; text-align:center; }
+  .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cell { position: relative; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); }
+  .hole { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .meteor { width: 66%; height: 66%; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ffdd76, #ff9f43 60%, #ff6a00 100%); transform: scale(0); transition: transform 80ms ease-out; box-shadow: 0 6px 16px rgba(255,140,0,.35); }
+  .hole.active .meteor { transform: scale(1); }
+  .hole.hit { animation: hitflash .25s; }
+  @keyframes hitflash { 0%{box-shadow: inset 0 0 0 0 var(--hit);} 100%{box-shadow: inset 0 0 0 120px transparent;} }
+
+  .controls { display:flex; gap:10px; margin-top:14px; }
+  button { flex:1; border: none; background: var(--accent); color:#fff; padding:12px 14px; border-radius: 12px; font-weight: 600; font-size:16px; cursor:pointer; touch-action: manipulation; }
+  button.secondary { background: transparent; border:1px solid rgba(255,255,255,.18); }
+  .msg { margin-top: 10px; color: #c8d7e1; text-align:center; min-height: 22px; }
+  .lives { letter-spacing: 2px; }
+  .pulse { animation: pulse 0.8s ease; }
+  @keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.06)} 100%{transform:scale(1)} }
+
+  /* Make it comfy on tiny phones */
+  @media (max-width: 380px) {
+    .wrap { padding: 12px; }
+    .hud .pill { flex:1; }
+  }
+</style>
 </head>
 <body>
-  <h1>Snake Game</h1>
-  <div id="scoreboard">
-    Score: <span id="score">0</span> | High Score: <span id="highScore">0</span>
-  </div>
-  <canvas id="gameCanvas" width="400" height="400"></canvas>
-  <div id="message"></div>
-  
-  <script>
-    (function() {
-      const canvas = document.getElementById('gameCanvas');
-      const ctx = canvas.getContext('2d');
-      const scoreElem = document.getElementById('score');
-      const highScoreElem = document.getElementById('highScore');
-      const messageElem = document.getElementById('message');
-      
-      const tileCount = 20;
-      const tileSize = canvas.width / tileCount;
-      let snake, food;
-      let dx, dy;
-      let score, highScore;
-      let running = false;
-      let gameOver = false;
-      let gameLoop;  // will hold the interval ID
-      
-      // Load high score from localStorage or default to 0
-      highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
-      highScoreElem.textContent = highScore;
-      
-      // Initialize or reset the game state
-      function initGame() {
-        // Snake starts with 3 segments centered in the grid
-        const startX = Math.floor(tileCount / 2);
-        const startY = Math.floor(tileCount / 2);
-        snake = [
-          { x: startX,     y: startY },
-          { x: startX - 1, y: startY },
-          { x: startX - 2, y: startY }
-        ];
-        dx = 1; dy = 0;  // initial movement direction (right)
-        score = 0;
-        scoreElem.textContent = score;
-        gameOver = false;
-        running = false;
-        placeFood();      // put the first food on the canvas
-        drawGame();       // render initial state
-        messageElem.textContent = 'Press an arrow key to start';
+  <main class="wrap">
+    <section id="meteor-game" class="card" aria-label="Whack-a-Meteors">
+      <h1>Whack-a-Meteors <span class="badge">Mobile-Ready</span></h1>
+
+      <div class="hud" role="status" aria-live="polite">
+        <div class="pill">Score: <strong id="score">0</strong></div>
+        <div class="pill">Best: <strong id="best">0</strong></div>
+        <div class="pill">Level: <strong id="level">1</strong></div>
+        <div class="pill">Lives: <strong id="lives" class="lives">♥♥♥</strong></div>
+      </div>
+
+      <div class="grid" id="grid" aria-label="Meteor grid">
+        <!-- 3x3 cells -->
+        <div class="cell"><div class="hole" data-idx="0"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="1"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="2"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="3"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="4"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="5"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="6"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="7"><div class="meteor" aria-hidden="true"></div></div></div>
+        <div class="cell"><div class="hole" data-idx="8"><div class="meteor" aria-hidden="true"></div></div></div>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn" class="secondary">Pause</button>
+      </div>
+      <div class="msg" id="msg" aria-live="polite">Tap meteors as they appear. Misses cost a life.</div>
+    </section>
+  </main>
+
+<script>
+(() => {
+  const grid = document.getElementById('grid');
+  const holes = Array.from(grid.querySelectorAll('.hole'));
+  const scoreEl = document.getElementById('score');
+  const bestEl  = document.getElementById('best');
+  const levelEl = document.getElementById('level');
+  const livesEl = document.getElementById('lives');
+  const msgEl   = document.getElementById('msg');
+  const startBtn= document.getElementById('startBtn');
+  const pauseBtn= document.getElementById('pauseBtn');
+
+  // Persistent high score
+  const LS_KEY = 'meteor_best_score_v1';
+  let best = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
+  bestEl.textContent = best;
+
+  // Game state
+  let score=0, level=1, lives=3, activeIdx=-1, timer=null, paused=false, running=false;
+  let showTimeMs = 900; // starting visible time per meteor
+  const minShowMs = 380; // fastest
+  const levelStep = 5;   // points per level
+  const vibrate = (ms)=> { try { if (navigator.vibrate) navigator.vibrate(ms);} catch(e){} };
+
+  function reset() {
+    clearTimers();
+    score=0; level=1; lives=3; activeIdx=-1; paused=false; running=false;
+    showTimeMs=900;
+    updateHUD();
+    holes.forEach(h=>h.classList.remove('active','hit'));
+    msgEl.textContent = 'Tap meteors as they appear. Misses cost a life.';
+    startBtn.textContent = 'Start';
+    pauseBtn.textContent = 'Pause';
+  }
+
+  function updateHUD() {
+    scoreEl.textContent = score;
+    levelEl.textContent = level;
+    livesEl.textContent = '♥'.repeat(lives);
+  }
+
+  function clearTimers(){ if (timer) { clearTimeout(timer); timer=null; } }
+
+  function nextMeteor() {
+    if (!running || paused) return;
+    // deactivate previous
+    if (activeIdx >= 0) {
+      // If previous was still active, it counts as a miss
+      holes[activeIdx].classList.remove('active');
+      loseLife();
+      if (!running) return; // ended
+    }
+    // pick a new index not equal to previous
+    let idx;
+    do { idx = Math.floor(Math.random()*holes.length); } while (idx === activeIdx);
+    activeIdx = idx;
+    holes[idx].classList.add('active');
+    // hide after showTimeMs if not tapped
+    timer = setTimeout(() => {
+      if (!running || paused) return;
+      holes[idx].classList.remove('active');
+      if (activeIdx === idx) { // still same => missed
+        loseLife();
+        if (!running) return;
       }
-      
-      // Place food at a random position not occupied by the snake
-      function placeFood() {
-        do {
-          food = {
-            x: Math.floor(Math.random() * tileCount),
-            y: Math.floor(Math.random() * tileCount)
-          };
-          // Loop until we find an empty cell
-        } while (snake.some(segment => segment.x === food.x && segment.y === food.y));
-      }
-      
-      // Draw the snake, food, and background
-      function drawGame() {
-        // Clear the canvas (fill with white background)
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // Draw the snake segments
-        snake.forEach((segment, index) => {
-          ctx.fillStyle = (index === 0) ? '#228822' : '#33aa33';  // head is darker
-          ctx.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize, tileSize);
-        });
-        // Draw the food as a red circle
-        ctx.fillStyle = '#dd3333';
-        ctx.beginPath();
-        ctx.arc(food.x * tileSize + tileSize/2, food.y * tileSize + tileSize/2, tileSize/2, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-      
-      // Update game state for each tick of the game loop
-      function updateGame() {
-        // Compute new head position
-        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-        
-        // Check wall collisions (game over if snake hits boundaries)
-        if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-          endGame();
-          return;
-        }
-        // Check self-collision (if new head overlaps any existing segment)
-        if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-          endGame();
-          return;
-        }
-        
-        // Move snake: add new head
-        snake.unshift(head);
-        // Check if food is eaten
-        if (head.x === food.x && head.y === food.y) {
-          score++;
-          scoreElem.textContent = score;
-          // Update high score if this score is greater
-          if (score > highScore) {
-            highScore = score;
-            highScoreElem.textContent = highScore;
-            localStorage.setItem('snakeHighScore', highScore);
-          }
-          placeFood();
-        } else {
-          // Remove the last segment (snake moves forward)
-          snake.pop();
-        }
-        
-        // Redraw everything
-        drawGame();
-      }
-      
-      // Handle game over state
-      function endGame() {
-        clearInterval(gameLoop);   // stop the game loop
-        running = false;
-        gameOver = true;
-        messageElem.textContent = 'Game Over! Press any key to restart';
-      }
-      
-      // Keyboard controls
-      document.addEventListener('keydown', function(event) {
-        const key = event.key;
-        if (!running) {
-          // If game is not running (either not started or after game over)
-          if (gameOver) {
-            // On game over, any key press will reset the game
-            initGame();
-            // If the key pressed is an arrow, optionally start immediately in that direction
-            if (key.startsWith('Arrow')) {
-              // Prevent immediate reverse start (ignore left if snake default is right)
-              if (key === 'ArrowLeft') {
-                // If left was pressed to restart, we ignore it and keep default (right)
-              } else {
-                setDirection(key);
-              }
-              startGameLoop();
-            }
-            // If a non-arrow key was pressed to restart, we just reset and wait for an arrow to start
-          } else {
-            // Game not started yet (initial state), wait for an arrow key to begin
-            if (key.startsWith('Arrow')) {
-              if (key === 'ArrowLeft') {
-                return; // disallow starting in opposite direction of default (right)
-              }
-              setDirection(key);
-              startGameLoop();
-            }
-          }
-        } else {
-          // Game is currently running, change direction based on arrow keys (if not opposite direction)
-          if (key === 'ArrowUp' && dy !== 1)    { dx = 0;  dy = -1; }
-          else if (key === 'ArrowDown' && dy !== -1) { dx = 0;  dy = 1; }
-          else if (key === 'ArrowLeft' && dx !== 1)  { dx = -1; dy = 0; }
-          else if (key === 'ArrowRight' && dx !== -1){ dx = 1;  dy = 0; }
-        }
-      });
-      
-      // Helper to set direction based on arrow key
-      function setDirection(key) {
-        if (key === 'ArrowUp')    { dx = 0;  dy = -1; }
-        if (key === 'ArrowDown')  { dx = 0;  dy = 1; }
-        if (key === 'ArrowLeft')  { dx = -1; dy = 0; }
-        if (key === 'ArrowRight') { dx = 1;  dy = 0; }
-      }
-      
-      // Start the game loop interval
-      function startGameLoop() {
-        messageElem.textContent = '';      // clear any message
-        running = true;
-        gameLoop = setInterval(updateGame, 100);  // update game 10 times per second (100 ms interval)
-      }
-      
-      // Launch initial game setup on page load
-      initGame();
-    })();
-  </script>
+      scheduleNext();
+    }, showTimeMs);
+  }
+
+  function scheduleNext() {
+    if (!running || paused) return;
+    // small random gap to prevent rhythm-hacking
+    const gap = 120 + Math.random()*120;
+    timer = setTimeout(nextMeteor, gap);
+  }
+
+  function loseLife() {
+    lives--;
+    vibrate(20);
+    livesEl.classList.add('pulse');
+    setTimeout(()=>livesEl.classList.remove('pulse'), 260);
+    updateHUD();
+    if (lives <= 0) endGame();
+  }
+
+  function hit(idx) {
+    if (!running || paused) return;
+    if (idx !== activeIdx) return; // tap on empty hole
+    // score and speed up
+    score++;
+    if (score % levelStep === 0 && showTimeMs > minShowMs) {
+      level++;
+      showTimeMs = Math.max(minShowMs, showTimeMs - 70);
+      levelEl.classList.add('pulse');
+      setTimeout(()=>levelEl.classList.remove('pulse'), 260);
+    }
+    updateHUD();
+    const h = holes[idx];
+    h.classList.add('hit');
+    setTimeout(()=>h.classList.remove('hit'), 220);
+    h.classList.remove('active');
+    activeIdx = -1;
+    vibrate(8);
+
+    if (score > best) {
+      best = score; bestEl.textContent = best;
+      localStorage.setItem(LS_KEY, String(best));
+    }
+    // chain next meteor quickly
+    clearTimers();
+    timer = setTimeout(nextMeteor, 100);
+  }
+
+  function startGame() {
+    if (running && !paused) return;
+    if (!running) {
+      running = true;
+      msgEl.textContent = 'Go!';
+      startBtn.textContent = 'Restart';
+      holes.forEach(h=>h.classList.remove('active','hit'));
+      activeIdx = -1;
+      nextMeteor();
+    } else if (paused) {
+      paused = false;
+      msgEl.textContent = 'Resumed';
+      pauseBtn.textContent = 'Pause';
+      scheduleNext();
+    }
+  }
+
+  function pauseGame() {
+    if (!running) return;
+    paused = !paused;
+    if (paused) {
+      clearTimers();
+      msgEl.textContent = 'Paused';
+      pauseBtn.textContent = 'Resume';
+    } else {
+      msgEl.textContent = 'Resumed';
+      pauseBtn.textContent = 'Pause';
+      scheduleNext();
+    }
+  }
+
+  function endGame() {
+    running = false; paused = false;
+    clearTimers();
+    holes.forEach(h=>h.classList.remove('active'));
+    activeIdx = -1;
+    msgEl.textContent = `Game over · Score ${score} · Best ${best} — tap Start to play again`;
+    startBtn.textContent = 'Start';
+  }
+
+  // Input: use pointer events for perfect mobile behavior
+  holes.forEach(hole => {
+    hole.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      const idx = parseInt(hole.dataset.idx, 10);
+      hit(idx);
+    }, { passive: false });
+  });
+
+  startBtn.addEventListener('click', () => {
+    // if already running and not paused => restart fresh
+    if (running && !paused) {
+      reset(); startGame();
+    } else {
+      startGame();
+    }
+  });
+  pauseBtn.addEventListener('click', pauseGame);
+
+  // Prevent double-tap zoom on iOS
+  let lastTouch = 0;
+  document.addEventListener('touchend', function(e){
+    const now = Date.now();
+    if (now - lastTouch < 350) e.preventDefault();
+    lastTouch = now;
+  }, { passive:false });
+
+  // Initialize
+  reset();
+})();
+</script>
 </body>
 </html>
