@@ -2,7 +2,7 @@
 // After creating your publication on substack.com, update SUBSTACK_URL below
 // if your publication slug is not "banquotas".
 (function () {
-  const SUBSTACK_URL = 'https://banquotas.substack.com';
+  const SUBSTACK_URL = 'https://twosuitdonny.substack.com';
   const FEED_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
   const MAX_POSTS = 3;
 
