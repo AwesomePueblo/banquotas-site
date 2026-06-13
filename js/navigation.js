@@ -14,7 +14,9 @@ class Navigation {
       { href: 'taste.html', text: 'Taste & Flavor', id: 'taste', senses: true },
       { href: 'quantum.html', text: 'Quantum Physics', id: 'quantum', senses: true },
       { href: 'donate.html', text: 'Donate', id: 'donate', senses: true },
-      { href: '../chat.html', text: 'Chat', id: 'chat' }
+      { href: '../products/index.html', text: 'Field Guide', id: 'field-guide' },
+      { href: '../chat.html', text: 'Chat', id: 'chat' },
+      { href: '../index.html#newsletter', text: 'Newsletter', id: 'newsletter' }
     ];
   }
 

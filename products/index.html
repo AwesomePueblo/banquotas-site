@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Field Guide to Human Perception - BanQuotas</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJLZ26REPX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJLZ26REPX');
+  </script>
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../senses/index.html">The Senses Project</a></li>
+        <li><a href="../senses/light.html">Journey Through Light</a></li>
+        <li><a href="../senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="../senses/quantum.html">Quantum Physics</a></li>
+        <li><a href="index.html" class="active">Field Guide</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="../index.html#newsletter">Newsletter</a></li>
+        <li><a href="../senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="hero">
+      <h1>The Field Guide to Human Perception</h1>
+      <p>The complete BanQuotas Senses Project, compiled into one beautifully formatted, print-ready book&mdash;yours to keep, yours to print, yours to return to.</p>
+    </div>
+
+    <section>
+      <p>You live inside a thin, bright sliver of the possible. Your eyes drink a single octave of color from a spectrum that runs for miles. Your tongue knows five tastes out of a chemical universe. And at the smallest scales, reality refuses to settle into anything solid until something looks.</p>
+      <p>The <em>Field Guide to Human Perception</em> gathers the three signature BanQuotas journeys into a single volume&mdash;edited, sequenced, and typeset as a finished book with a cover, an original introduction, and a clean design built for reading and for printing. It is the same poetic-scientific voice you know from the site, given the permanence of a page you can hold.</p>
+    </section>
+
+    <section>
+      <h2>What's inside</h2>
+      <div class="grid">
+        <div class="card">
+          <h2>Chapter I &mdash; Light</h2>
+          <p>A soul rides the entire electromagnetic spectrum, from the slow dark swell of radio waves through the narrow miracle of visible color to the annihilating fire of gamma rays.</p>
+        </div>
+        <div class="card">
+          <h2>Chapter II &mdash; Taste</h2>
+          <p>A descent onto the warm landscape of the tongue&mdash;sweet, salty, sour, bitter, umami&mdash;and a wandering out past the edge of everything a human can taste.</p>
+        </div>
+        <div class="card">
+          <h2>Chapter III &mdash; Quantum Perception</h2>
+          <p>Light at its smallest scale, where a photon declines to be wave or particle until we ask, and where observing seems to reach backward into the past.</p>
+        </div>
+      </div>
+      <p>Plus an original introduction written for this edition, a table of contents, and a clean print-ready design. Roughly <strong>6,000 words</strong> across three chapters&mdash;a single self-contained HTML book you open in any browser and read, or print to a keepsake PDF.</p>
+    </section>
+
+    <section class="newsletter-section">
+      <h2>Get the Field Guide</h2>
+      <p>A one-time purchase. Download the book, read it on any device, and print your own PDF copy to keep on your shelf.</p>
+      <p style="margin: 1.5rem 0;">
+        <!--
+          TODO (manual step): Create the Gumroad product first.
+          1. Sign in at gumroad.com and create a new digital product priced at $19.
+          2. Upload products/field-guide.html (or a PDF exported from it) as the file.
+          3. Replace the placeholder URL below with your real Gumroad product link.
+        -->
+        <a href="https://banquotas.gumroad.com/l/field-guide" class="btn btn-primary" target="_blank" rel="noopener">Buy the Field Guide &mdash; $19</a>
+      </p>
+      <p style="color: var(--text-muted);">Not ready to buy? You can read the three journeys for free on the web as a sample:
+        <a href="../senses/light.html">Light</a>,
+        <a href="../senses/taste.html">Taste</a>, and
+        <a href="../senses/quantum.html">Quantum Physics</a>.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(event.target) &&
+          !toggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const sidebar = document.getElementById('sidebar');
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
