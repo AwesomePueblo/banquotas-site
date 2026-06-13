@@ -6,20 +6,6 @@
   const FEED_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
   const MAX_POSTS = 3;
 
-  function renderSignup() {
-    const container = document.getElementById('substack-signup');
-    if (!container) return;
-
-    const iframe = document.createElement('iframe');
-    iframe.src = SUBSTACK_URL + '/embed';
-    iframe.className = 'substack-embed';
-    iframe.title = 'Subscribe to the BanQuotas newsletter';
-    iframe.loading = 'lazy';
-    iframe.frameBorder = '0';
-    iframe.scrolling = 'no';
-    container.appendChild(iframe);
-  }
-
   function stripHtml(html) {
     const div = document.createElement('div');
     div.innerHTML = html;
@@ -85,7 +71,6 @@
   }
 
   function init() {
-    renderSignup();
     renderFeed();
   }
 
