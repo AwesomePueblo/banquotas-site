@@ -75,7 +75,7 @@ Source: `senses/light.html`
 | 2 | The Silence Before Light | ✅ Published | Radio Waves |
 | 3 | The Afterglow of Creation | ✅ Published | Microwaves + Infrared |
 | 4 | And Then There Was Color | ✅ Published | Visible Light |
-| 5 | The Secret Garden | ✅ Written, pending publish | Ultraviolet |
+| 5 | The Secret Garden | ✅ Written, ready to publish | Ultraviolet |
 | 6 | X-Rays — The Light That Sees Through You | ⬜ Not written | X-Rays |
 | 7 | The Edge of Everything | ⬜ Not written | Gamma Rays |
 | 8 | The Full Spectrum (reflection) | ⬜ Not written | Original / synthesis |
