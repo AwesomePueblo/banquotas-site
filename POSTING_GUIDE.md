@@ -32,12 +32,16 @@ Max 6 tags total.
 
 ## Step 3 — Provide the Substack Note
 
-Short (3–5 lines), copy/paste ready. Format:
-- Line 1–2: the most arresting fact or line from the post
-- Line 3: one sentence of context
-- Final line: "Part N of the Journey Through Light: 🔗 [your link]"
+Write the Note as a ready-to-copy block. Format:
+- Line 1–2: the single most arresting fact or line from the post (make it work as a standalone thought)
+- Line 3: one sentence of context or consequence
+- Final line: "Part N of the Journey Through Light: [link placeholder]"
 
-Remind the user: post the Note in Substack → Notes tab, right after publishing.
+**How to post it:**
+1. Open Substack app or substack.com
+2. Tap/click the compose icon → choose **Note** (not Post)
+3. Paste the text, replace [link placeholder] with your published post URL
+4. Publish immediately after the post goes live
 
 ---
 
