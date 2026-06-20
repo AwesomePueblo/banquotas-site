@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corta Stump Grinding – Professional Stump Removal</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJLZ26REPX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJLZ26REPX');
+  </script>
+
+  <style>
+    /* ── Stump Grinding Business Overrides ── */
+    :root {
+      --sg-green: #2e7d32;
+      --sg-green-light: #4caf50;
+      --sg-green-glow: rgba(46, 125, 50, 0.35);
+      --sg-amber: #f57f17;
+      --sg-amber-light: #ffb300;
+    }
+
+    /* Hero */
+    .sg-hero {
+      background:
+        linear-gradient(160deg, rgba(0,0,0,0.72) 0%, rgba(11,15,20,0.85) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat;
+      border-radius: var(--border-radius);
+      padding: 5rem 3rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .sg-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--border-radius);
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, var(--sg-green-glow), transparent 70%);
+      pointer-events: none;
+    }
+    .sg-hero-badge {
+      display: inline-block;
+      background: rgba(46,125,50,0.2);
+      border: 1px solid rgba(76,175,80,0.4);
+      color: var(--sg-green-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    .sg-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(120deg, #ffffff 40%, var(--sg-green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sg-hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+    .sg-hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-green {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--sg-green), var(--sg-green-light));
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 0 20px var(--sg-green-glow);
+    }
+    .btn-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px var(--sg-green-glow);
+    }
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    /* Trust bar */
+    .sg-trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .sg-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .sg-trust-item svg { color: var(--sg-green-light); flex-shrink: 0; }
+
+    /* Section titles */
+    .sg-section-title {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(120deg, var(--text-primary) 40%, var(--sg-green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .sg-section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* Services grid */
+    .sg-services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    .sg-service-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 1.75rem 1.5rem;
+      transition: var(--transition);
+    }
+    .sg-service-card:hover {
+      border-color: rgba(76,175,80,0.35);
+      box-shadow: 0 0 24px rgba(46,125,50,0.15);
+      transform: translateY(-3px);
+    }
+    .sg-service-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .sg-service-card h3 {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .sg-service-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    /* Why us grid */
+    .sg-why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    .sg-why-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .sg-why-item .sg-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(46,125,50,0.18);
+      border-radius: 50%;
+      margin-bottom: 0.85rem;
+      color: var(--sg-green-light);
+    }
+    .sg-why-item h4 { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .sg-why-item p { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* Pricing */
+    .sg-pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    .sg-pricing-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: var(--transition);
+    }
+    .sg-pricing-card.featured {
+      border-color: rgba(76,175,80,0.5);
+      background: rgba(46,125,50,0.08);
+    }
+    .sg-pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--sg-green), var(--sg-green-light));
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.9rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .sg-pricing-card h3 { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .sg-pricing-price {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .sg-pricing-price span { font-size: 1rem; color: var(--text-muted); font-family: var(--font-body); font-weight: 400; }
+    .sg-pricing-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem; }
+    .sg-pricing-features { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+    .sg-pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sg-pricing-features li::before {
+      content: '✓';
+      color: var(--sg-green-light);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Testimonials */
+    .sg-testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+    .sg-testimonial {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+    }
+    .sg-stars { color: var(--sg-amber-light); font-size: 1rem; margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+    .sg-testimonial p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem; font-style: italic; }
+    .sg-reviewer { display: flex; align-items: center; gap: 0.75rem; }
+    .sg-reviewer-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .sg-reviewer strong { display: block; font-size: 0.9rem; }
+    .sg-reviewer span { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── Calendar / Booking ── */
+    .sg-booking {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: 3.5rem;
+    }
+    .sg-booking-header {
+      background: linear-gradient(135deg, rgba(46,125,50,0.25), rgba(76,175,80,0.1));
+      border-bottom: 1px solid var(--border-color);
+      padding: 2rem 2rem 1.5rem;
+    }
+    .sg-booking-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .sg-booking-header p { color: var(--text-muted); font-size: 0.95rem; }
+    .sg-booking-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 420px;
+    }
+    @media (max-width: 700px) {
+      .sg-booking-body { grid-template-columns: 1fr; }
+    }
+
+    /* Calendar panel */
+    .sg-cal-panel {
+      border-right: 1px solid var(--border-color);
+      padding: 1.75rem;
+    }
+    @media (max-width: 700px) {
+      .sg-cal-panel { border-right: none; border-bottom: 1px solid var(--border-color); }
+    }
+    .sg-cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .sg-cal-nav-btn {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sg-cal-nav-btn:hover {
+      background: rgba(76,175,80,0.15);
+      border-color: rgba(76,175,80,0.4);
+    }
+    .sg-cal-month-label {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .sg-cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .sg-cal-dow {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0.35rem 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .sg-cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      cursor: default;
+      transition: var(--transition);
+      position: relative;
+    }
+    .sg-cal-day.available {
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+    .sg-cal-day.available:hover {
+      background: rgba(76,175,80,0.2);
+      color: #fff;
+    }
+    .sg-cal-day.selected {
+      background: linear-gradient(135deg, var(--sg-green), var(--sg-green-light));
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 0 12px var(--sg-green-glow);
+    }
+    .sg-cal-day.today {
+      border: 1px solid rgba(76,175,80,0.5);
+    }
+    .sg-cal-day.past,
+    .sg-cal-day.weekend {
+      color: var(--text-muted);
+      opacity: 0.4;
+    }
+    .sg-cal-day.empty { background: transparent; cursor: default; }
+    .sg-cal-day.booked {
+      color: var(--text-muted);
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+
+    /* Slots panel */
+    .sg-slots-panel {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .sg-slots-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+    .sg-slots-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .sg-slot {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.88rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      text-align: center;
+    }
+    .sg-slot:hover {
+      background: rgba(76,175,80,0.15);
+      border-color: rgba(76,175,80,0.4);
+      color: var(--text-primary);
+    }
+    .sg-slot.selected {
+      background: rgba(46,125,50,0.3);
+      border-color: var(--sg-green-light);
+      color: #fff;
+      font-weight: 600;
+    }
+    .sg-slot.taken {
+      opacity: 0.35;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    .sg-no-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* Booking form */
+    .sg-form-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(11,15,20,0.88);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .sg-form-overlay.open { display: flex; }
+    .sg-form-modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .sg-form-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .sg-form-close:hover { color: var(--text-primary); }
+    .sg-form-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .sg-form-subtitle {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .sg-form-appt-summary {
+      background: rgba(46,125,50,0.12);
+      border: 1px solid rgba(76,175,80,0.3);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      color: var(--sg-green-light);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .sg-form-group { margin-bottom: 1.1rem; }
+    .sg-form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+    .sg-form-group input,
+    .sg-form-group select,
+    .sg-form-group textarea {
+      width: 100%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: var(--transition);
+    }
+    .sg-form-group input:focus,
+    .sg-form-group select:focus,
+    .sg-form-group textarea:focus {
+      border-color: rgba(76,175,80,0.5);
+      box-shadow: 0 0 0 3px rgba(46,125,50,0.15);
+    }
+    .sg-form-group select option { background: var(--bg-tertiary); }
+    .sg-form-group textarea { resize: vertical; min-height: 80px; }
+    .sg-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .sg-form-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .sg-form-actions .btn-green { flex: 1; justify-content: center; }
+    .sg-form-cancel {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .sg-form-cancel:hover { color: var(--text-primary); }
+
+    /* Confirmation screen */
+    .sg-confirm {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .sg-confirm.open { display: block; }
+    .sg-confirm-icon {
+      width: 70px; height: 70px;
+      background: rgba(46,125,50,0.2);
+      border: 2px solid var(--sg-green-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.25rem;
+    }
+    .sg-confirm h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .sg-confirm p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .sg-confirm-detail {
+      background: rgba(46,125,50,0.1);
+      border: 1px solid rgba(76,175,80,0.25);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-align: left;
+    }
+    .sg-confirm-detail strong { color: var(--sg-green-light); display: block; margin-bottom: 0.25rem; }
+
+    /* Contact strip */
+    .sg-contact-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .sg-contact-item {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .sg-contact-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .sg-contact-item h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; font-weight: 500; }
+    .sg-contact-item p { font-size: 0.97rem; color: var(--text-primary); font-weight: 500; }
+
+    /* Misc */
+    .sg-section { margin-bottom: 3.5rem; }
+    .sg-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 2.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="../senses/index.html">The Senses Project</a></li>
+        <li><a href="../senses/light.html">Journey Through Light</a></li>
+        <li><a href="../senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="../senses/quantum.html">Quantum Physics</a></li>
+        <li><a href="../products/index.html">Field Guide</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="index.html" class="active">Corta Stump Grinding</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="../senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="sg-hero">
+      <div class="sg-hero-badge">🌳 Licensed &amp; Insured · Serving Pueblo County</div>
+      <h1>Corta Stump Grinding</h1>
+      <p>Professional stump removal done right. Fast turnaround, competitive pricing, and a yard left cleaner than we found it.</p>
+      <div class="sg-hero-cta">
+        <a href="#booking" class="btn-green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Schedule Appointment
+        </a>
+        <a href="tel:+17195550182" class="btn-outline-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.61 3.45 2 2 0 013.6 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.91a16 16 0 006.08 6.08l.97-.97a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (719) 555-0182
+        </a>
+      </div>
+    </div>
+
+    <!-- Trust bar -->
+    <div class="sg-trust-bar">
+      <div class="sg-trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Licensed &amp; Fully Insured
+      </div>
+      <div class="sg-trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Same-Week Availability
+      </div>
+      <div class="sg-trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Free Estimates
+      </div>
+      <div class="sg-trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        200+ Jobs Completed
+      </div>
+      <div class="sg-trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Chip &amp; Mulch Included
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="sg-section">
+      <h2 class="sg-section-title">What We Do</h2>
+      <p class="sg-section-subtitle">Every job handled by experienced operators with commercial-grade equipment.</p>
+      <div class="sg-services-grid">
+        <div class="sg-service-card">
+          <div class="sg-service-icon">🪓</div>
+          <h3>Stump Grinding</h3>
+          <p>We grind stumps 6–12 inches below grade so grass can grow back over them. All sizes handled—from saplings to century-old oaks.</p>
+        </div>
+        <div class="sg-service-card">
+          <div class="sg-service-icon">🌱</div>
+          <h3>Root Removal</h3>
+          <p>Surface roots tearing up your lawn or driveway? We can cut and remove root systems to protect your hardscape.</p>
+        </div>
+        <div class="sg-service-card">
+          <div class="sg-service-icon">🧹</div>
+          <h3>Chip &amp; Debris Cleanup</h3>
+          <p>Ground chips are raked back into the hole or bagged and hauled away—your choice. We leave your yard tidy.</p>
+        </div>
+        <div class="sg-service-card">
+          <div class="sg-service-icon">📋</div>
+          <h3>Free Estimates</h3>
+          <p>On-site estimates at no charge. We measure the stump, assess access, and give you a firm price before any work begins.</p>
+        </div>
+        <div class="sg-service-card">
+          <div class="sg-service-icon">🏘️</div>
+          <h3>Multi-Stump Discounts</h3>
+          <p>Have several stumps? We price jobs in bulk—the more stumps, the lower the per-stump cost. Ask about our volume rate.</p>
+        </div>
+        <div class="sg-service-card">
+          <div class="sg-service-icon">🚚</div>
+          <h3>Emergency Removal</h3>
+          <p>Storm damage or hazard stumps? We offer priority scheduling and can often arrive within 24–48 hours.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why choose us -->
+    <div class="sg-section">
+      <h2 class="sg-section-title">Why Corta?</h2>
+      <p class="sg-section-subtitle">We're local, we're fast, and we care about your property.</p>
+      <div class="sg-why-grid">
+        <div class="sg-why-item">
+          <div class="sg-check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Fully Insured</h4>
+          <p>$1M general liability + worker's comp. Your property is protected every step of the job.</p>
+        </div>
+        <div class="sg-why-item">
+          <div class="sg-check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>Fast Scheduling</h4>
+          <p>Most jobs scheduled within 3–5 business days. Emergency slots available.</p>
+        </div>
+        <div class="sg-why-item">
+          <div class="sg-check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>Transparent Pricing</h4>
+          <p>No hidden fees. The quote you get is the price you pay—period.</p>
+        </div>
+        <div class="sg-why-item">
+          <div class="sg-check">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h4>Property-Friendly</h4>
+          <p>Narrow-access grinders fit through 36" gates. We protect turf and landscaping around the work area.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="sg-section">
+      <h2 class="sg-section-title">Pricing</h2>
+      <p class="sg-section-subtitle">Straightforward, per-stump pricing based on stump diameter at ground level.</p>
+      <div class="sg-pricing-grid">
+        <div class="sg-pricing-card">
+          <h3>Small Stump</h3>
+          <div class="sg-pricing-price">$95 <span>flat</span></div>
+          <div class="sg-pricing-desc">Up to 12" diameter</div>
+          <ul class="sg-pricing-features">
+            <li>Grind to 6" below grade</li>
+            <li>Chips raked in-hole</li>
+            <li>Single stump</li>
+          </ul>
+          <a href="#booking" class="btn-green" style="display:block;text-align:center;text-decoration:none;">Book Now</a>
+        </div>
+        <div class="sg-pricing-card featured">
+          <div class="sg-pricing-badge">Most Popular</div>
+          <h3>Medium Stump</h3>
+          <div class="sg-pricing-price">$145 <span>flat</span></div>
+          <div class="sg-pricing-desc">13"–24" diameter</div>
+          <ul class="sg-pricing-features">
+            <li>Grind to 8" below grade</li>
+            <li>Chips raked in-hole</li>
+            <li>Site cleanup included</li>
+            <li>Single stump</li>
+          </ul>
+          <a href="#booking" class="btn-green" style="display:block;text-align:center;text-decoration:none;">Book Now</a>
+        </div>
+        <div class="sg-pricing-card">
+          <h3>Large Stump</h3>
+          <div class="sg-pricing-price">$6 <span>/ inch</span></div>
+          <div class="sg-pricing-desc">25"+ diameter · call for quote</div>
+          <ul class="sg-pricing-features">
+            <li>Grind to 10" below grade</li>
+            <li>Full chip removal option</li>
+            <li>Root exposure assessment</li>
+            <li>Free on-site estimate</li>
+          </ul>
+          <a href="tel:+17195550182" class="btn-green" style="display:block;text-align:center;text-decoration:none;">Call for Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Calendar -->
+    <div id="booking" class="sg-booking">
+      <div class="sg-booking-header">
+        <h2>📅 Schedule Your Appointment</h2>
+        <p>Pick a date and time below. We'll confirm your booking by phone or email within 2 hours.</p>
+      </div>
+      <div class="sg-booking-body">
+        <!-- Calendar -->
+        <div class="sg-cal-panel">
+          <div class="sg-cal-nav">
+            <button class="sg-cal-nav-btn" id="cal-prev" onclick="calNav(-1)">&#8249;</button>
+            <span class="sg-cal-month-label" id="cal-month-label"></span>
+            <button class="sg-cal-nav-btn" id="cal-next" onclick="calNav(1)">&#8250;</button>
+          </div>
+          <div class="sg-cal-grid" id="cal-grid"></div>
+        </div>
+
+        <!-- Time slots -->
+        <div class="sg-slots-panel">
+          <div class="sg-slots-title" id="slots-title">Select a date to see available times</div>
+          <div class="sg-slots-grid" id="slots-grid" style="display:none;"></div>
+          <div class="sg-no-date" id="no-date-msg">← Choose an available weekday on the calendar</div>
+          <button
+            class="btn-green"
+            id="book-btn"
+            onclick="openBookingForm()"
+            style="display:none;margin-top:auto;"
+          >
+            Confirm Appointment
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="sg-section">
+      <h2 class="sg-section-title">What Customers Say</h2>
+      <p class="sg-section-subtitle">Verified reviews from homeowners in Pueblo County.</p>
+      <div class="sg-testimonials">
+        <div class="sg-testimonial">
+          <div class="sg-stars">★★★★★</div>
+          <p>"Had three big cottonwood stumps in my backyard. Corta came out Tuesday, done by noon. Yard looked perfect. Will absolutely use them again."</p>
+          <div class="sg-reviewer">
+            <div class="sg-reviewer-avatar" style="background:#2e7d32;">MR</div>
+            <div>
+              <strong>Marcus R.</strong>
+              <span>Pueblo West, CO · 3 stumps removed</span>
+            </div>
+          </div>
+        </div>
+        <div class="sg-testimonial">
+          <div class="sg-stars">★★★★★</div>
+          <p>"The price was way lower than I expected and they finished faster than I thought possible. The booking calendar online made it super easy to set up."</p>
+          <div class="sg-reviewer">
+            <div class="sg-reviewer-avatar" style="background:#1565c0;">DT</div>
+            <div>
+              <strong>Diane T.</strong>
+              <span>Pueblo, CO · 1 stump removed</span>
+            </div>
+          </div>
+        </div>
+        <div class="sg-testimonial">
+          <div class="sg-stars">★★★★★</div>
+          <p>"Professional crew, narrow grinder fit through my fence gate no problem. They raked everything clean. Highly recommended."</p>
+          <div class="sg-reviewer">
+            <div class="sg-reviewer-avatar" style="background:#6a1b9a;">JL</div>
+            <div>
+              <strong>James L.</strong>
+              <span>Beulah, CO · 2 stumps removed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact strip -->
+    <div class="sg-section">
+      <h2 class="sg-section-title">Get in Touch</h2>
+      <p class="sg-section-subtitle">Questions? We're easy to reach.</p>
+      <div class="sg-contact-strip">
+        <div class="sg-contact-item">
+          <div class="sg-contact-icon">📞</div>
+          <div>
+            <h4>Phone / Text</h4>
+            <p>(719) 555-0182</p>
+          </div>
+        </div>
+        <div class="sg-contact-item">
+          <div class="sg-contact-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>hello@cortastumps.com</p>
+          </div>
+        </div>
+        <div class="sg-contact-item">
+          <div class="sg-contact-icon">🕐</div>
+          <div>
+            <h4>Hours</h4>
+            <p>Mon–Fri 7am–6pm</p>
+          </div>
+        </div>
+        <div class="sg-contact-item">
+          <div class="sg-contact-icon">📍</div>
+          <div>
+            <h4>Service Area</h4>
+            <p>Pueblo County &amp; surrounding</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-nav">
+      <a href="/">← Back to BanQuotas</a>
+    </div>
+  </main>
+
+  <!-- Booking Form Modal -->
+  <div class="sg-form-overlay" id="booking-overlay">
+    <div class="sg-form-modal">
+      <button class="sg-form-close" onclick="closeBookingForm()">✕</button>
+
+      <!-- Form -->
+      <div id="booking-form-content">
+        <div class="sg-form-title">Book Your Appointment</div>
+        <div class="sg-form-subtitle">Fill in your details and we'll confirm within 2 hours.</div>
+        <div class="sg-form-appt-summary" id="appt-summary"></div>
+        <div class="sg-form-row">
+          <div class="sg-form-group">
+            <label for="f-first">First Name *</label>
+            <input type="text" id="f-first" placeholder="Jane" required />
+          </div>
+          <div class="sg-form-group">
+            <label for="f-last">Last Name *</label>
+            <input type="text" id="f-last" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="sg-form-group">
+          <label for="f-phone">Phone *</label>
+          <input type="tel" id="f-phone" placeholder="(719) 555-0100" required />
+        </div>
+        <div class="sg-form-group">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" placeholder="jane@example.com" />
+        </div>
+        <div class="sg-form-group">
+          <label for="f-address">Service Address *</label>
+          <input type="text" id="f-address" placeholder="123 Main St, Pueblo, CO" required />
+        </div>
+        <div class="sg-form-row">
+          <div class="sg-form-group">
+            <label for="f-stumps">Number of Stumps</label>
+            <select id="f-stumps">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5+">5 or more</option>
+            </select>
+          </div>
+          <div class="sg-form-group">
+            <label for="f-size">Largest Stump Size</label>
+            <select id="f-size">
+              <option value="Small (under 12&quot;)">Small (under 12")</option>
+              <option value="Medium (12–24&quot;)" selected>Medium (12–24")</option>
+              <option value="Large (24&quot;+)">Large (24"+)</option>
+              <option value="Not sure">Not sure</option>
+            </select>
+          </div>
+        </div>
+        <div class="sg-form-group">
+          <label for="f-notes">Additional Notes</label>
+          <textarea id="f-notes" placeholder="Gate width, location in yard, special access needs…"></textarea>
+        </div>
+        <div class="sg-form-actions">
+          <button class="sg-form-cancel" onclick="closeBookingForm()">Cancel</button>
+          <button class="btn-green" onclick="submitBooking()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Confirm Booking
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="sg-confirm" id="booking-confirm">
+        <div class="sg-confirm-icon">✓</div>
+        <h3>You're on the Books!</h3>
+        <p>Your appointment request has been received. We'll call or text you to confirm within 2 hours.</p>
+        <div class="sg-confirm-detail" id="confirm-details"></div>
+        <p>Questions? Call us at <strong>(719) 555-0182</strong></p>
+        <button class="btn-green" onclick="closeBookingForm()" style="margin-top:1.25rem;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar toggle script -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(e.target) &&
+          !toggle.contains(e.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768)
+        document.getElementById('sidebar').classList.remove('open');
+    });
+  </script>
+
+  <!-- Calendar & Booking Script -->
+  <script>
+    // ── State ──
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let calYear  = today.getFullYear();
+    let calMonth = today.getMonth();   // 0-indexed
+
+    let selectedDate = null;   // Date object
+    let selectedSlot = null;   // string e.g. "9:00 AM"
+
+    // Simulate some already-booked slots per date string
+    const bookedSlots = {
+      [fmtKey(addDays(today, 2))]: ['8:00 AM', '10:00 AM'],
+      [fmtKey(addDays(today, 4))]: ['1:00 PM', '2:00 PM', '3:00 PM'],
+      [fmtKey(addDays(today, 7))]: ['8:00 AM', '9:00 AM', '11:00 AM'],
+    };
+
+    // All time slots offered
+    const ALL_SLOTS = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+
+    function addDays(date, n) {
+      const d = new Date(date);
+      d.setDate(d.getDate() + n);
+      return d;
+    }
+
+    function fmtKey(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    function fmtDisplay(date) {
+      return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    // ── Calendar rendering ──
+    const MONTH_NAMES = ['January','February','March','April','May','June',
+                         'July','August','September','October','November','December'];
+    const DOW = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+    function renderCal() {
+      document.getElementById('cal-month-label').textContent =
+        MONTH_NAMES[calMonth] + ' ' + calYear;
+
+      const grid = document.getElementById('cal-grid');
+      grid.innerHTML = '';
+
+      // Day-of-week headers
+      DOW.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'sg-cal-dow';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+      // Empty cells before 1st
+      for (let i = 0; i < firstDay; i++) {
+        const el = document.createElement('div');
+        el.className = 'sg-cal-day empty';
+        grid.appendChild(el);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(calYear, calMonth, d);
+        const el = document.createElement('div');
+        const dow = date.getDay(); // 0=Sun, 6=Sat
+        const isPast    = date < today;
+        const isWeekend = dow === 0 || dow === 6;
+        const isToday   = date.getTime() === today.getTime();
+        const key       = fmtKey(date);
+        const isSelected = selectedDate && fmtKey(selectedDate) === key;
+
+        el.textContent = d;
+        el.className = 'sg-cal-day';
+
+        if (isSelected)      el.classList.add('selected');
+        else if (isPast)     el.classList.add('past');
+        else if (isWeekend)  el.classList.add('weekend');
+        else                 el.classList.add('available');
+
+        if (isToday) el.classList.add('today');
+
+        if (!isPast && !isWeekend) {
+          el.addEventListener('click', () => selectDate(date));
+        }
+
+        grid.appendChild(el);
+      }
+
+      // Disable prev if already on current month
+      const prevBtn = document.getElementById('cal-prev');
+      prevBtn.disabled = (calYear === today.getFullYear() && calMonth === today.getMonth());
+      prevBtn.style.opacity = prevBtn.disabled ? '0.3' : '';
+    }
+
+    function calNav(dir) {
+      calMonth += dir;
+      if (calMonth < 0) { calMonth = 11; calYear--; }
+      if (calMonth > 11) { calMonth = 0; calYear++; }
+      renderCal();
+    }
+
+    // ── Date selection ──
+    function selectDate(date) {
+      selectedDate = date;
+      selectedSlot = null;
+      renderCal();
+      renderSlots();
+    }
+
+    // ── Slot rendering ──
+    function renderSlots() {
+      const title    = document.getElementById('slots-title');
+      const grid     = document.getElementById('slots-grid');
+      const noMsg    = document.getElementById('no-date-msg');
+      const bookBtn  = document.getElementById('book-btn');
+
+      if (!selectedDate) {
+        grid.style.display = 'none';
+        noMsg.style.display = '';
+        bookBtn.style.display = 'none';
+        title.textContent = 'Select a date to see available times';
+        return;
+      }
+
+      title.textContent = fmtDisplay(selectedDate);
+      grid.style.display = 'grid';
+      noMsg.style.display = 'none';
+      grid.innerHTML = '';
+
+      const key   = fmtKey(selectedDate);
+      const taken = bookedSlots[key] || [];
+
+      ALL_SLOTS.forEach(slot => {
+        const el = document.createElement('div');
+        el.className = 'sg-slot';
+        el.textContent = slot;
+        const isTaken    = taken.includes(slot);
+        const isSelected = selectedSlot === slot;
+
+        if (isTaken) {
+          el.classList.add('taken');
+          el.title = 'Already booked';
+        } else {
+          if (isSelected) el.classList.add('selected');
+          el.addEventListener('click', () => {
+            selectedSlot = slot;
+            renderSlots();
+          });
+        }
+
+        grid.appendChild(el);
+      });
+
+      bookBtn.style.display = selectedSlot ? '' : 'none';
+    }
+
+    // ── Modal ──
+    function openBookingForm() {
+      if (!selectedDate || !selectedSlot) return;
+      document.getElementById('appt-summary').textContent =
+        '📅 ' + fmtDisplay(selectedDate) + ' at ' + selectedSlot;
+      document.getElementById('booking-form-content').style.display = '';
+      document.getElementById('booking-confirm').classList.remove('open');
+      document.getElementById('booking-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingForm() {
+      document.getElementById('booking-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function submitBooking() {
+      const first   = document.getElementById('f-first').value.trim();
+      const last    = document.getElementById('f-last').value.trim();
+      const phone   = document.getElementById('f-phone').value.trim();
+      const address = document.getElementById('f-address').value.trim();
+
+      if (!first || !last || !phone || !address) {
+        alert('Please fill in the required fields (First Name, Last Name, Phone, and Address).');
+        return;
+      }
+
+      // Mark the slot as booked in local state
+      const key = fmtKey(selectedDate);
+      if (!bookedSlots[key]) bookedSlots[key] = [];
+      bookedSlots[key].push(selectedSlot);
+
+      // Show confirmation
+      document.getElementById('confirm-details').innerHTML =
+        '<strong>Appointment</strong>' +
+        fmtDisplay(selectedDate) + ' at ' + selectedSlot + '<br><br>' +
+        '<strong>Name</strong>' + first + ' ' + last + '<br>' +
+        '<strong>Phone</strong>' + phone + '<br>' +
+        '<strong>Address</strong>' + address;
+
+      document.getElementById('booking-form-content').style.display = 'none';
+      document.getElementById('booking-confirm').classList.add('open');
+
+      // Reset selection
+      selectedDate = null;
+      selectedSlot = null;
+      renderCal();
+      renderSlots();
+    }
+
+    // Close modal on overlay click
+    document.getElementById('booking-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeBookingForm();
+    });
+
+    // ── Init ──
+    renderCal();
+    renderSlots();
+  </script>
+
+</body>
+</html>
