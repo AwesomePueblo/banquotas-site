@@ -81,7 +81,7 @@ Source: `senses/light.html`
 | 4 | And Then There Was Color | ✅ Published | Visible Light |
 | 5 | The Secret Garden | ✅ Published | Ultraviolet |
 | 6 | The Light That Sees Through You | ✅ Published | X-Rays |
-| 7 | The Edge of Everything | ⬜ Not written | Gamma Rays |
+| 7 | I Have Become the Light | ✅ Published | Gamma Rays |
 | 8 | The Full Spectrum (reflection) | ⬜ Not written | Original / synthesis |
 
 ### Series 2: Journey Through Taste
