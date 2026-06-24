@@ -89,7 +89,7 @@ Source: `senses/taste.html`
 
 | # | Title | Status | Source Section |
 |---|-------|--------|---------------|
-| 9  | The Two Tastes God Wired You to Trust | ⬜ Not written | Sweet + Salt |
+| 9  | The Two Tastes You Were Born Trusting | ✅ Published | Sweet + Salt |
 | 10 | Warning System | ⬜ Not written | Sour + Bitter |
 | 11 | The Taste With No English Word | ⬜ Not written | Umami |
 | 12 | The Sixth Taste | ⬜ Not written | Oleogustus / Fat |
@@ -107,13 +107,19 @@ Source: `senses/quantum.html`
 
 ## Voice & Editorial Rules
 
-- **No Big Bang framing** — use "the moment God created the universe," "when God spoke light into being," "God's design," etc.
-- **Faith + science together** — never preachy, always wonder-first. The science reveals the creation; it doesn't compete with it.
 - **Italic prose** = pulled from the site's original essays
-- **Non-italic** = new science/faith commentary written for Substack
+- **Non-italic** = new science commentary written for Substack
 - Opening hook is always non-italic, first-person observational, short
 - Closing teaser always previews the next post by name
 - Sign-off is always the TwoSuitDonny line (exact wording above)
+
+### God & Scripture Rules (STRICT)
+- **Never use the word "evolution"** — reframe neutrally: "the body is calibrated to," "we were built to," "nature designed," "precisely tuned to"
+- **Never replace God with evolution** or vice versa
+- **God/scripture only if:** (1) already in the source page content, OR (2) user explicitly requests it
+- **All scripture must be NIV84**
+- **Confirm with user before adding** any God/scripture reference not in the source
+- **No Big Bang framing** — if origin of universe must be mentioned, use "the moment God created the universe" or similar — but only if user approves
 
 ---
 
