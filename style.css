@@ -1074,3 +1074,92 @@ blockquote cite {
 .content-section:last-child {
   margin-bottom: 2rem;
 }
+
+/* ─── Essay / Long-form Page ────────────────────────────────────────── */
+.essay {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+}
+
+.essay-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.essay-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cerulean-light);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.essay-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+}
+
+.essay-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+  font-family: var(--font-display);
+  margin-bottom: 0;
+}
+
+.essay-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2.5rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.essay-body p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.essay-body blockquote {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text-primary);
+  border-left: 3px solid var(--cerulean);
+  padding: 1.25rem 1.75rem;
+  margin: 2rem 0;
+  background: var(--glass-bg);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.essay-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2.5rem 0;
+  width: 40%;
+}
+
+.essay-footer {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.essay-signoff {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
