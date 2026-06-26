@@ -18,7 +18,35 @@
     
 </head>
 <body>
-    <!-- Navigation will be inserted here by JavaScript -->
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="index.html">The Senses Project</a></li>
+        <li><a href="light.html">Journey Through Light</a></li>
+        <li><a href="taste.html">Journey Through Taste</a></li>
+        <li><a href="quantum.html" class="active">Quantum Physics</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="../products/index.html">Field Guide</a></li>
+        <li><a href="../index.html#newsletter">Newsletter</a></li>
+        <li><a href="donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+  </nav>
 
     <main class="main-content">
         <div class="hero-section">
@@ -117,6 +145,26 @@
         </div>
     </main>
 
-    <script src="../js/navigation.js"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(event.target) &&
+          !toggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
