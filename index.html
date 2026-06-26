@@ -14,7 +14,6 @@
     gtag('js', new Date());
     gtag('config', 'G-XJLZ26REPX');
   </script>
-  
 </head>
 <body>
   <!-- Mobile Menu Toggle -->
@@ -32,7 +31,7 @@
       <h1>BanQuotas</h1>
       <p>Exploring the sensory spectrum, perception, and beyond</p>
     </div>
-    
+
     <div class="sidebar-nav">
       <ul>
         <li><a href="/" class="active">Home</a></li>
@@ -51,44 +50,62 @@
 
   <!-- Main Content -->
   <main class="main-content">
-    <div class="hero">
-      <h1>Welcome to BanQuotas</h1>
-      <p>Exploring the sensory spectrum, perception, and beyond—through poetic-scientific journeys that bridge the gap between science and soul.</p>
-    </div>
 
-    <div class="grid">
-      <div class="card">
+    <!-- Full-Screen Cinematic Hero -->
+    <section class="hero-full">
+      <canvas class="hero-canvas"></canvas>
+
+      <div class="hero-content">
+        <h1 class="hero-word-reveal">Welcome to BanQuotas</h1>
+        <p class="hero-sub">Exploring the sensory spectrum, perception, and beyond — poetic-scientific journeys that bridge the gap between science and soul.</p>
+        <div class="hero-cta">
+          <a href="senses/light.html" class="btn btn-primary">Journey Through Light</a>
+          <a href="#newsletter" class="btn btn-secondary">Subscribe</a>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="scroll-indicator-text">Scroll</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Cards Grid -->
+    <div class="grid stagger-grid">
+      <div class="card stagger-item">
         <h2>Journey Through Light</h2>
         <p>Travel from radio waves to gamma rays with a soul suspended in the spectrum—experiencing the full range of light, color, and transformation through a poetic exploration of electromagnetic radiation.</p>
         <a href="senses/light.html">Read the full journey</a>
       </div>
 
-      <div class="card">
+      <div class="card stagger-item">
         <h2>Journey Through Taste</h2>
         <p>From untastable molecules to umami and beyond—this is a grounded yet poetic exploration of the biology and emotion of flavor, diving deep into the science of sensation.</p>
         <a href="senses/taste.html">Begin the taste odyssey</a>
       </div>
 
-      <div class="card">
+      <div class="card stagger-item">
         <h2>The Field Guide</h2>
         <p>The complete Senses Project—light, taste, and quantum perception—compiled into a single beautifully formatted, print-ready book. An original introduction, three chapters, yours to keep and print.</p>
         <a href="products/index.html">Get the Field Guide</a>
       </div>
 
-      <div class="card">
+      <div class="card stagger-item">
         <h2>Conversation with an AI</h2>
         <p>A curious and poetic dialogue between human and machine on perception, consciousness, and the limits of language—exploring what it means to understand and be understood.</p>
         <a href="chat.html">Read the conversation</a>
       </div>
 
-      <div class="card">
+      <div class="card stagger-item">
         <h2>Support BanQuotas</h2>
         <p>If you'd like to help keep these projects going and support the creation of more poetic-scientific explorations, you can contribute securely through Venmo.</p>
         <a href="senses/donate.html">Go to donation page</a>
       </div>
     </div>
 
-    <section class="newsletter-section" id="newsletter">
+    <section class="newsletter-section scroll-reveal" id="newsletter">
       <h2>The BanQuotas Newsletter</h2>
       <p>Poetic-scientific journeys through perception and sensation, delivered to your inbox. New essays on the senses, consciousness, and the strange physics of experience.</p>
       <div class="substack-posts" style="margin-bottom:1.5rem;">
@@ -114,26 +131,25 @@
   </main>
 
   <script src="js/substack.js"></script>
+  <script src="js/scroll-animations.js"></script>
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('open');
     }
 
-    // Close sidebar when clicking outside on mobile
     document.addEventListener('click', function(event) {
       const sidebar = document.getElementById('sidebar');
       const toggle = document.querySelector('.mobile-menu-toggle');
-      
-      if (window.innerWidth <= 768 && 
-          !sidebar.contains(event.target) && 
-          !toggle.contains(event.target) && 
+
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(event.target) &&
+          !toggle.contains(event.target) &&
           sidebar.classList.contains('open')) {
         sidebar.classList.remove('open');
       }
     });
 
-    // Handle window resize
     window.addEventListener('resize', function() {
       const sidebar = document.getElementById('sidebar');
       if (window.innerWidth > 768) {

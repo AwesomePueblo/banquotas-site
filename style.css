@@ -696,6 +696,217 @@ html {
   }
 }
 
+/* ─── Full-Screen Hero ──────────────────────────────────────────────── */
+.hero-full {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: calc(-1 * var(--content-padding)) calc(-1 * var(--content-padding)) 5rem;
+  padding: var(--content-padding) calc(var(--content-padding) * 1.5);
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Bottom fade to background */
+.hero-full::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 50%, rgba(0, 123, 167, 0.07), transparent 65%),
+    linear-gradient(to bottom, rgba(11, 15, 20, 0) 40%, rgba(11, 15, 20, 0.6) 80%, var(--bg-primary) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+/* Large cinematic headline */
+.hero-word-reveal {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  text-shadow: 0 0 80px rgba(45, 168, 216, 0.25), 0 2px 40px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1.75rem;
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: rise 0.9s 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise 0.9s 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ─── Word Reveal Animation ─────────────────────────────────────────── */
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: inherit;
+}
+
+.word-inner {
+  display: inline-block;
+  animation: wordRise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes wordRise {
+  from {
+    opacity: 0;
+    transform: translateY(110%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Scroll Indicator ──────────────────────────────────────────────── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: rise 0.8s 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  pointer-events: none;
+}
+
+.scroll-indicator-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scroll-indicator svg {
+  color: var(--cerulean-light);
+  animation: scrollBounce 2.2s 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50%       { transform: translateY(7px); opacity: 1; }
+}
+
+/* ─── Scroll Reveal ─────────────────────────────────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Stagger Items ──────────────────────────────────────────────────── */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Override page-load animation for cards inside stagger-grid */
+.stagger-grid .card {
+  animation: none;
+}
+
+/* ─── Reduced Motion Overrides ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .stagger-item,
+  .hero-sub,
+  .hero-cta,
+  .scroll-indicator,
+  .word-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── Hero Full — Mobile ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-full {
+    margin: -4.5rem -1.25rem 3.5rem;
+    padding: 6rem 1.25rem 4rem;
+    min-height: 92vh;
+    align-items: flex-end;
+  }
+
+  .hero-word-reveal {
+    font-size: clamp(2.6rem, 10vw, 3.5rem);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  .scroll-indicator {
+    bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-full {
+    margin: -4.5rem -1rem 3rem;
+    padding: 5.5rem 1rem 3.5rem;
+    min-height: 90vh;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* Video Section Styles */
 .video-section {
   margin-bottom: 3rem;
