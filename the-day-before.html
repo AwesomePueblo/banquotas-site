@@ -58,7 +58,7 @@
 
       <div class="essay-body">
 
-        <p>There's a version of this story that fits neatly into a project retrospective. Enterprise CRM migration, year and a half of development, three deployment attempts, a pivot to Couchbase two weeks post-launch. That version is true.</p>
+        <p>There's a version of this story that fits neatly into a project retrospective. Enterprise CRM migration, year and a half of development, three deployment attempts, a pivot to a new caching layer two weeks post-launch. That version is true.</p>
 
         <p>But it misses the part I actually think about.</p>
 
@@ -68,7 +68,7 @@
 
         <h2>The Project</h2>
 
-        <p>Our company had run on Siebel CRM for roughly twenty years. Siebel was on-premise — our system, our servers, our institutional knowledge baked into workflows that predated most of the people using them. Moving off of it to Salesforce wasn't just a technology swap. It was archaeology.</p>
+        <p>Our company had run on the same CRM system for roughly twenty years. It was on-premise — our hardware, our servers, our institutional knowledge baked into workflows that predated most of the people using them. Moving off of it to a modern cloud platform wasn't just a technology swap. It was archaeology.</p>
 
         <p>My team got brought in about six months to a year after the project had already kicked off. Someone else had started it; we were there to finish it. And even with all that prior groundwork, we were still discovering requirements we didn't know existed.</p>
 
@@ -100,11 +100,11 @@
 
         <h2>The Day Before</h2>
 
-        <p>We were in Fort Lauderdale. The go-live was scheduled to start Saturday morning — a full day and night of coordinated deployments, testing, fixes, more deployments. The whole team was there. The day before, we took a breath and went to play pickleball.</p>
+        <p>We were on the road for the go-live. The cutover was scheduled to start Saturday morning — a full day and night of coordinated deployments, testing, fixes, more deployments. The whole team was there. The day before, we took a breath and went to play pickleball.</p>
 
         <p>I left my phone in the Uber.</p>
 
-        <p>By the time I realized, the driver was forty-five minutes south in Miami. I was the lead architect on the project. Two-factor authentication. Full coordination responsibility for the next thirty-six hours. My phone wasn't a convenience — it was a necessity.</p>
+        <p>By the time I realized, the driver was forty-five minutes away. I was the lead architect on the project. Two-factor authentication. Full coordination responsibility for the next thirty-six hours. My phone wasn't a convenience — it was a necessity.</p>
 
         <p>My boss, who's also one of my closest friends — I've known him for over twenty years — jumped in another Uber with me and we headed back to the hotel. We asked our driver: realistically, what's the incentive for an Uber driver to return a lost phone? The answer was something like twenty dollars. We looked at each other. No way this guy drives forty-five minutes for twenty bucks.</p>
 
@@ -112,7 +112,7 @@
 
         <p>He didn't speak English. I don't speak Spanish.</p>
 
-        <p>Our current driver heard what was happening and just took over. Without being asked, he spent ten or fifteen minutes on the phone with the Miami driver, negotiating, pushing, working through it. Eventually a solution emerged: the Miami driver would leave my phone with his sister in Hialeah — just north of Miami — and we could come pick it up.</p>
+        <p>Our current driver heard what was happening and just took over. Without being asked, he spent ten or fifteen minutes on the phone with the other driver, negotiating, pushing, working through it. Eventually a solution emerged: the driver would leave my phone with his sister across town and we could come pick it up.</p>
 
         <p>Our driver offered to take me.</p>
 
@@ -128,7 +128,7 @@
 
         <p>When we got to the sister's house, he got out of the car with me. Handled the conversation. Got my phone back. The sister asked — I'm told — <em>is this the gringo?</em> Yes. That was me. The gringo with a go-live in the morning.</p>
 
-        <p>On the drive back to Fort Lauderdale, he turned to me and said something I haven't forgotten:</p>
+        <p>On the drive back, he turned to me and said something I haven't forgotten:</p>
 
         <blockquote>Your project is gonna be successful.</blockquote>
 
@@ -144,7 +144,7 @@
 
         <p>We went live the next day.</p>
 
-        <p>There were issues. There are always issues. We hit API limits, asynchronous event limits, MuleSoft backlog. The transactional calls that used to flow through WebMethods and Siebel weren't built for what we were asking Salesforce and Snowflake to do — those platforms aren't designed for high-frequency transactional requests, and we felt that immediately. Within a week or two, we introduced Couchbase to handle that load and the architecture stabilized.</p>
+        <p>There were issues. There are always issues. We hit API limits, asynchronous event limits, middleware backlogs. The transactional calls that used to flow through our legacy systems weren't built for what we were asking the new platform to do — cloud CRMs aren't designed for high-frequency transactional requests, and we felt that immediately. Within a week or two, we introduced a caching layer to handle that load and the architecture stabilized.</p>
 
         <p>But we didn't stop. We didn't back out. We went forward and we stayed forward.</p>
 
