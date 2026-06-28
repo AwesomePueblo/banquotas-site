@@ -91,7 +91,7 @@ Source: `senses/taste.html`
 |---|-------|--------|---------------|
 | 9  | The Two Tastes You Were Born Trusting | ✅ Published | Sweet + Salt |
 | 10 | Warning System | ✅ Published | Sour + Bitter |
-| 11 | The Taste With No English Word | ⬜ Not written | Umami |
+| 11 | The Taste With No English Word | ✅ Published | Umami |
 | 12 | The Sixth Taste | ⬜ Not written | Oleogustus / Fat |
 | 13 | The Fiction of Flavor | ⬜ Not written | Smell + brain synthesis |
 
