@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stump Grinding FAQ – Corta Stump Grinding</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJLZ26REPX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJLZ26REPX');
+  </script>
+
+  <style>
+    :root {
+      --sg-green: #2e7d32;
+      --sg-green-light: #4caf50;
+      --sg-green-glow: rgba(46, 125, 50, 0.35);
+    }
+
+    /* Page hero */
+    .faq-hero {
+      background: linear-gradient(160deg, rgba(0,0,0,0.72) 0%, rgba(11,15,20,0.88) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat;
+      border-radius: var(--border-radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--border-radius);
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, var(--sg-green-glow), transparent 70%);
+      pointer-events: none;
+    }
+    .faq-hero-badge {
+      display: inline-block;
+      background: rgba(46,125,50,0.2);
+      border: 1px solid rgba(76,175,80,0.4);
+      color: var(--sg-green-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .faq-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(120deg, #ffffff 40%, var(--sg-green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .faq-hero p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+    }
+    .faq-hero-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn-green {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--sg-green), var(--sg-green-light));
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 0 20px var(--sg-green-glow);
+    }
+    .btn-green:hover { transform: translateY(-2px); box-shadow: 0 0 32px var(--sg-green-glow); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+    .btn-ghost:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.25); }
+
+    /* Disclaimer banner */
+    .faq-disclaimer {
+      background: rgba(245, 127, 23, 0.1);
+      border: 1px solid rgba(255, 179, 0, 0.3);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: #ffb300;
+      margin-bottom: 2.5rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .faq-disclaimer span { flex-shrink: 0; font-size: 1rem; }
+
+    /* Category nav */
+    .faq-cat-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .faq-cat-btn {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .faq-cat-btn:hover,
+    .faq-cat-btn.active {
+      background: rgba(46,125,50,0.18);
+      border-color: rgba(76,175,80,0.4);
+      color: var(--sg-green-light);
+    }
+
+    /* FAQ category section */
+    .faq-category {
+      margin-bottom: 3rem;
+    }
+    .faq-category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .faq-category-icon {
+      font-size: 1.3rem;
+    }
+    .faq-category-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--text-primary) 40%, var(--sg-green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Individual FAQ item */
+    .faq-item {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item:hover {
+      border-color: rgba(76,175,80,0.25);
+    }
+    .faq-item.open {
+      border-color: rgba(76,175,80,0.35);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.1rem 1.4rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-body);
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+    .faq-question:hover { color: var(--sg-green-light); }
+    .faq-item.open .faq-question { color: var(--sg-green-light); }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(76,175,80,0.1);
+      border: 1px solid rgba(76,175,80,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease;
+      color: var(--sg-green-light);
+      font-size: 0.7rem;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: rgba(46,125,50,0.25);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0 1.4rem;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 600px;
+      padding: 0 1.4rem 1.25rem;
+    }
+    .faq-answer p {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+    .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-answer ul {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      padding-left: 1.25rem;
+      margin: 0.4rem 0 0.6rem;
+    }
+    .faq-answer ul li { margin-bottom: 0.35rem; }
+    .faq-answer strong { color: var(--text-primary); }
+    .faq-answer .faq-tip {
+      display: flex;
+      gap: 0.6rem;
+      background: rgba(46,125,50,0.1);
+      border: 1px solid rgba(76,175,80,0.2);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: var(--sg-green-light);
+      margin-top: 0.75rem;
+    }
+    .faq-answer .faq-verify {
+      display: flex;
+      gap: 0.6rem;
+      background: rgba(245,127,23,0.08);
+      border: 1px solid rgba(255,179,0,0.2);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #ffb300;
+      margin-top: 0.75rem;
+    }
+
+    /* CTA strip */
+    .faq-cta {
+      background: linear-gradient(135deg, rgba(46,125,50,0.2), rgba(76,175,80,0.08));
+      border: 1px solid rgba(76,175,80,0.3);
+      border-radius: var(--border-radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .faq-cta h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .faq-cta p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.97rem;
+    }
+    .faq-cta-btns {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="../senses/index.html">The Senses Project</a></li>
+        <li><a href="../senses/light.html">Journey Through Light</a></li>
+        <li><a href="../senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="../senses/quantum.html">Quantum Physics</a></li>
+        <li><a href="../products/index.html">Field Guide</a></li>
+        <li><a href="../chat.html">AI Conversation</a></li>
+        <li><a href="index.html" class="active">Corta Stump Grinding</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="../senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="faq-hero">
+      <div class="faq-hero-badge">🌳 Corta Stump Grinding</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Everything you need to know about stump grinding — before, during, and after the job.</p>
+      <div class="faq-hero-links">
+        <a href="index.html#booking" class="btn-green">Schedule an Appointment</a>
+        <a href="index.html" class="btn-ghost">← Back to Main Page</a>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="faq-disclaimer">
+      <span>⚠️</span>
+      <div>These answers are based on standard industry practice and are pending review by the business owner. Some specifics — pricing, service area, equipment, and policies — will be updated once confirmed. When in doubt, <strong>call us directly</strong> for the most accurate answer.</div>
+    </div>
+
+    <!-- Category filter nav -->
+    <div class="faq-cat-nav" id="cat-nav">
+      <button class="faq-cat-btn active" onclick="filterCat('all', this)">All Questions</button>
+      <button class="faq-cat-btn" onclick="filterCat('process', this)">The Process</button>
+      <button class="faq-cat-btn" onclick="filterCat('lawn', this)">Lawn &amp; Property</button>
+      <button class="faq-cat-btn" onclick="filterCat('roots', this)">Roots &amp; Regrowth</button>
+      <button class="faq-cat-btn" onclick="filterCat('prep', this)">Preparation &amp; Safety</button>
+      <button class="faq-cat-btn" onclick="filterCat('cost', this)">Pricing &amp; Booking</button>
+      <button class="faq-cat-btn" onclick="filterCat('after', this)">After the Job</button>
+    </div>
+
+    <!-- ── PROCESS ── -->
+    <div class="faq-category" data-cat="process">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">🪓</div>
+        <div class="faq-category-title">The Process</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What exactly is stump grinding?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Stump grinding is the process of using a rotating cutting wheel with carbide teeth to chip away a tree stump down to below ground level. Unlike stump <em>removal</em>, which pulls the entire root ball out of the ground, grinding leaves the root system in place and reduces the visible stump to a pile of wood chips and sawdust.</p>
+          <p>The result is a flat, level area where the stump used to be — filled with the ground chips — where grass or other plants can eventually grow back.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does the job take?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>It depends on the size of the stump and how many you have:</p>
+          <ul>
+            <li><strong>Small stump (under 12"):</strong> 15–30 minutes</li>
+            <li><strong>Medium stump (12"–24"):</strong> 30–60 minutes</li>
+            <li><strong>Large stump (24"+):</strong> 1–2 hours or more</li>
+            <li><strong>Multiple stumps:</strong> We often complete 3–5 average stumps in a half day</li>
+          </ul>
+          <p>Setup, moving the machine into position, and cleanup add time on top of the actual grinding. A typical residential job with 1–2 stumps usually wraps up in well under 2 hours.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How deep do you grind the stump?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Standard practice is 6–12 inches below grade (ground level). For most homeowners who just want to mow over the area or plant grass, 6–8 inches is sufficient. If you plan to plant a new tree, install pavers, or pour concrete, we recommend grinding deeper — up to 12 inches — to remove as much wood as possible before it decomposes.</p>
+          <div class="faq-tip">💡 Let us know your plans for the area so we can grind to the right depth for your project.</div>
+          <div class="faq-verify">⚠️ Verify exact depths with the owner — these are industry-standard ranges.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What's the difference between stump grinding and stump removal?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Stump grinding</strong> shreds the visible stump down below grade, leaving the root system underground to decompose naturally over 3–7 years. It's faster, less disruptive, and less expensive.</p>
+          <p><strong>Stump removal</strong> extracts the entire root ball from the ground. It's more thorough but requires heavy equipment, leaves a large hole, and typically costs significantly more.</p>
+          <p>For most homeowners, grinding is the right choice. We recommend full removal only if you're installing a structure directly over the area or dealing with a species known for aggressive regrowth (like willows or poplars).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LAWN & PROPERTY ── -->
+    <div class="faq-category" data-cat="lawn">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">🌱</div>
+        <div class="faq-category-title">Lawn &amp; Property</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will stump grinding damage my lawn?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Minimal damage is expected — we use rubber-tired machines that distribute weight evenly across your turf. In most cases, any tire tracks or minor scuffing disappears after the first mowing. We can also place protective mats in front of the machine on vulnerable or wet ground.</p>
+          <p>If the ground is very soft or saturated, we may recommend rescheduling for a drier day to avoid ruts. As a general rule: if you can walk on your lawn without sinking in, our equipment won't cause lasting damage.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can your equipment fit through my fence gate?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our smaller grinders can fit through a standard 36-inch gate opening. For gates narrower than 36 inches, we may need to discuss options — including temporary fence panel removal or using hand tools for access.</p>
+          <div class="faq-tip">💡 Measure your gate opening before booking and mention it in the notes field — we'll flag it if there's a potential issue.</div>
+          <div class="faq-verify">⚠️ Confirm minimum gate width with the owner based on their specific equipment.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What happens to the wood chips after grinding?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>After grinding, you'll have a pile of wood chips and sawdust where the stump was. You have a few options:</p>
+          <ul>
+            <li><strong>Fill the hole:</strong> We rake the chips back into the void — they compact over time and grass can grow over them.</li>
+            <li><strong>Use as mulch:</strong> The chips make excellent garden mulch. We can spread them around nearby beds.</li>
+            <li><strong>Haul away:</strong> If you want the area completely cleared, we can bag and remove the chips for an additional fee.</li>
+          </ul>
+          <div class="faq-verify">⚠️ Confirm chip hauling pricing and availability with the owner.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will the surface roots be ground too?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>We grind the main stump and any major surface roots that are accessible. Roots that are far from the base and running just under the surface of the lawn (the kind that trip you while mowing) can also be addressed — just point them out when we arrive and we'll assess what we can grind.</p>
+          <p>Deep underground roots are not ground as part of a standard job — those are left to decompose naturally.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ROOTS & REGROWTH ── -->
+    <div class="faq-category" data-cat="roots">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">🌳</div>
+        <div class="faq-category-title">Roots &amp; Regrowth</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will the tree grow back after the stump is ground?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>For most tree species, no. Once the stump is ground away, the tree has no way to photosynthesize and the root system gradually starves and dies.</p>
+          <p>However, some species — particularly poplars, willows, elms, and certain oaks — can send up new shoots from the surviving root system. If you notice sprouts appearing after grinding, they can be cut down repeatedly until the roots exhaust their stored energy (usually within 1–2 growing seasons) or treated with a stump-killer herbicide applied to fresh cuts.</p>
+          <div class="faq-tip">💡 Tell us the tree species when you book — we can advise on regrowth risk upfront.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What happens to the roots underground?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>The underground root system is left in place and decomposes naturally over time. Small roots break down in a few years; large roots from mature trees can take 7–10 years to fully decompose. As they break down, the soil above them may settle slightly — this is normal and not a concern for most uses.</p>
+          <p>Decomposing roots temporarily pull nitrogen from the surrounding soil as the wood breaks down. If you're planting directly over the area soon after grinding, adding a nitrogen-rich fertilizer can help.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Could the roots damage my driveway or foundation?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Once the tree is gone, the roots lose their energy source and stop growing. Any pressure the roots were exerting on nearby structures stops progressing from that point forward. Existing damage won't get worse, but the roots won't repair damage they've already caused either.</p>
+          <p>If roots are already pushing up a driveway section or cracking a sidewalk, those repairs are separate from the stump grinding job and would need to be addressed by a concrete contractor.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PREPARATION & SAFETY ── -->
+    <div class="faq-category" data-cat="prep">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">🦺</div>
+        <div class="faq-category-title">Preparation &amp; Safety</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need to do anything before you arrive?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>A few things help the job go smoothly:</p>
+          <ul>
+            <li>Clear any rocks, debris, or lawn decorations within about 5 feet of the stump — flying chips can travel</li>
+            <li>Make sure the gate is unlocked and the path to the stump is clear</li>
+            <li>Mark any sprinkler heads, low-voltage landscape lighting, or buried lines you're aware of near the stump</li>
+            <li>Move vehicles out of the driveway if access is needed</li>
+            <li>Let us know about any underground irrigation or invisible fence wires in the area</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need to call 811 before you start?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>In most states, you are required by law to call <strong>811</strong> (the national "Call Before You Dig" line) at least 3 business days before any digging or grinding. 811 dispatches locators to mark the approximate location of underground utility lines — gas, electric, water, cable, and phone — with paint or flags.</p>
+          <p>We strongly recommend making this call before your appointment. It's free, it's quick, and it protects you, your yard, and our crew from accidentally striking a line.</p>
+          <div class="faq-tip">💡 Call 811 or visit <strong>call811.com</strong> to request a locate. Allow 3 business days before your scheduled appointment.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is stump grinding safe around my garden or landscaping?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, with care. Wood chips and debris will fly from the cutting wheel during grinding — our equipment has guards to direct debris downward, but some material will scatter. We typically ask that people and pets stay at least 50 feet away during active grinding.</p>
+          <p>For beds and plantings right next to the stump, we can place plywood barriers to protect them. Let us know before we start if there's anything fragile nearby you want us to work around.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need to be home during the job?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Not necessarily. As long as we have access to the stump and you've left notes about anything we need to know (gate code, fragile plantings, buried irrigation, etc.), we can complete most jobs without you present.</p>
+          <p>We'll send a completion message when we're done and can share before/after photos on request.</p>
+          <div class="faq-verify">⚠️ Confirm the owner's policy on unattended jobs.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PRICING & BOOKING ── -->
+    <div class="faq-category" data-cat="cost">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">💵</div>
+        <div class="faq-category-title">Pricing &amp; Booking</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How is pricing calculated?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>We price primarily by stump diameter measured at ground level:</p>
+          <ul>
+            <li><strong>Small (up to 12"):</strong> $95 flat</li>
+            <li><strong>Medium (12"–24"):</strong> $145 flat</li>
+            <li><strong>Large (24"+):</strong> $6 per inch — call for a quote</li>
+          </ul>
+          <p>Additional factors that can affect the price: number of stumps (multi-stump discounts available), access difficulty, root exposure, and whether chip hauling is requested.</p>
+          <div class="faq-verify">⚠️ All pricing pending confirmation by the owner.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you offer free estimates?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. For larger or complex jobs, we're happy to come out and assess the stumps before giving you a firm price. You can also send us photos and the approximate diameter of each stump and we can often quote over the phone.</p>
+          <div class="faq-verify">⚠️ Confirm free estimate policy with the owner.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How far out are you typically booked?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Most standard jobs can be scheduled within 3–5 business days. During peak season (spring and fall), lead times may extend to 1–2 weeks. Emergency or hazard stumps are given priority and we can often arrive within 24–48 hours.</p>
+          <div class="faq-verify">⚠️ Confirm current scheduling lead times with the owner.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What forms of payment do you accept?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>We accept cash, check, and most major credit/debit cards. Payment is due upon job completion.</p>
+          <div class="faq-verify">⚠️ Confirm accepted payment methods with the owner.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is your cancellation or rescheduling policy?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Life happens — we understand. We just ask for as much notice as possible so we can fill the slot. Cancellations or rescheduling requests made less than 24 hours before the appointment may result in a small trip fee.</p>
+          <div class="faq-verify">⚠️ Confirm cancellation policy with the owner before publishing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AFTER THE JOB ── -->
+    <div class="faq-category" data-cat="after">
+      <div class="faq-category-header">
+        <div class="faq-category-icon">🌿</div>
+        <div class="faq-category-title">After the Job</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I plant grass where the stump was?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, but wait a few weeks. Fresh wood chips are slow to decompose and can temporarily draw nitrogen out of the soil — which can stress new grass. For best results:</p>
+          <ul>
+            <li>Remove as much of the chip pile as possible from the hole</li>
+            <li>Fill in with quality topsoil</li>
+            <li>Apply a nitrogen-rich starter fertilizer</li>
+            <li>Seed and water regularly</li>
+          </ul>
+          <p>Grass planted after stump grinding usually establishes well within one growing season.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I plant a new tree in the same spot?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>We recommend waiting at least 1–2 years before planting a new tree in the same location. The decomposing wood from the old stump and roots competes with a new tree's roots for nutrients and can harbor fungal diseases. If you want to replant sooner, excavate the old chip material, backfill with fresh topsoil, and choose a disease-resistant species.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          There's a sunken spot in my lawn where the stump was — is that normal?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, this is completely normal. As the wood chips and remaining roots underground decompose, the ground above settles. It typically takes 1–3 years for the area to fully stabilize. You can speed up the process by:</p>
+          <ul>
+            <li>Topping up the hole with extra topsoil as it settles</li>
+            <li>Watering regularly to help decomposition</li>
+            <li>Aerating the area in spring and fall</li>
+          </ul>
+          <p>The settlement is rarely more than a few inches and has no impact on surrounding lawn health.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          There's a mushroom or fungus growing where the stump was — should I be worried?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          <p>Not usually. Fungi are nature's decomposers — they're doing exactly what they're supposed to do, breaking down the remaining wood underground. Mushrooms appearing near a ground stump are almost always harmless wood-rotting species, not anything that will spread to your healthy lawn or trees.</p>
+          <p>They'll disappear on their own once the underground wood is fully decomposed. If you have pets or small children who might eat them, remove the mushroom caps promptly as a precaution.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA strip -->
+    <div class="faq-cta">
+      <h2>Still have questions?</h2>
+      <p>Give us a call or schedule a free estimate — we're happy to talk through any job before you commit.</p>
+      <div class="faq-cta-btns">
+        <a href="index.html#booking" class="btn-green">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Schedule Appointment
+        </a>
+        <a href="tel:+17195550182" class="btn-ghost">
+          📞 (719) 555-0182
+        </a>
+      </div>
+    </div>
+
+    <div class="content-nav">
+      <a href="index.html">← Back to Corta Stump Grinding</a>
+    </div>
+  </main>
+
+  <script>
+    // Sidebar toggle
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(e.target) &&
+          !toggle.contains(e.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768)
+        document.getElementById('sidebar').classList.remove('open');
+    });
+
+    // Accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all others in same category
+      item.closest('.faq-category').querySelectorAll('.faq-item.open').forEach(el => {
+        if (el !== item) el.classList.remove('open');
+      });
+      item.classList.toggle('open', !isOpen);
+    }
+
+    // Category filter
+    function filterCat(cat, btn) {
+      document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.faq-category').forEach(sec => {
+        sec.style.display = (cat === 'all' || sec.dataset.cat === cat) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
