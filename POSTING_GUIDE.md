@@ -93,7 +93,7 @@ Source: `senses/taste.html`
 | 10 | Warning System | ✅ Published | Sour + Bitter |
 | 11 | The Taste With No English Word | ✅ Published | Umami |
 | 12 | The Sixth Taste | ✅ Published | Oleogustus / Fat |
-| 13 | The Fiction of Flavor | ⬜ Not written | Smell + brain synthesis |
+| 13 | The Fiction of Flavor | ✅ Published | Smell + brain synthesis |
 
 ### Series 3: Quantum Perception
 Source: `senses/quantum.html`
