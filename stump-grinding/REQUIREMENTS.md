@@ -3,8 +3,8 @@
 ## Business Identity
 - **Current brand:** Tony's Stump Grinding (existing social media presence)
 - **New website brand:** Tony's Land Clearing (intentionally broader — confirmed direction)
-- **Domain:** tonylandclearing.com (pending purchase)
-- **Business email:** tony@tonylandclearing.com (Tony confirmed "yes please")
+- **Domain:** tonyslandclearing.com ✅ (purchased on GoDaddy)
+- **Business email:** tony@tonyslandclearing.com (to be set up)
 - **Phone:** 620-617-1838 ✅
 - **Tagline:** "No stump too tough!" ✅ — use this on the site
 - **Services:** Stump grinding, land clearing, residential & commercial
@@ -47,7 +47,7 @@
 - [ ] Final exact business name confirmed (Tony's Land Clearing?)
 - [ ] Trevor's (Brentwood Dirt Works) website URL
 - [ ] Google account created + credentials
-- [ ] tonylandclearing.com domain — confirm name works
+- [x] Domain — tonyslandclearing.com purchased on GoDaddy ✅
 - [x] Phone number — 620-617-1838 ✅
 - [x] Service area — Middle Tennessee, focus Brentwood & Franklin ✅
 - [ ] Pricing confirmation ($95 small / $145 medium / $6 per inch large)
