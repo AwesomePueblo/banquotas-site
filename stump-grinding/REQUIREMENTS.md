@@ -1,10 +1,14 @@
 # Tony's Land Clearing — Project Requirements
 
 ## Business Identity
-- **Business name:** Tony's Land Clearing (direction confirmed; verify exact final name)
+- **Current brand:** Tony's Stump Grinding (existing social media presence)
+- **New website brand:** Tony's Land Clearing (intentionally broader — confirmed direction)
 - **Domain:** tonylandclearing.com (pending purchase)
 - **Business email:** tony@tonylandclearing.com (Tony confirmed "yes please")
-- **Services:** Land clearing, stump grinding, ground clearing — intentionally broad so it doesn't limit job types
+- **Phone:** 620-617-1838 ✅
+- **Tagline:** "No stump too tough!" ✅ — use this on the site
+- **Services:** Stump grinding, land clearing, residential & commercial
+- **Service area:** Middle Tennessee ✅ — focus on Brentwood and Franklin (affluent Nashville suburbs)
 
 ## Website
 - Standalone site separate from banquotas.com
@@ -35,12 +39,12 @@
 - Tony needs to review and confirm accuracy before removing disclaimer
 
 ## Outstanding — Need From Tony
-- [ ] Final exact business name confirmed
+- [ ] Final exact business name confirmed (Tony's Land Clearing?)
 - [ ] Trevor's website URL
 - [ ] Google account created + credentials
 - [ ] tonylandclearing.com domain — confirm name works
-- [ ] Phone number
-- [ ] Real service area / zip codes
+- [x] Phone number — 620-617-1838 ✅
+- [x] Service area — Middle Tennessee, focus Brentwood & Franklin ✅
 - [ ] Pricing confirmation ($95 small / $145 medium / $6 per inch large)
 - [ ] Photos of completed jobs (for before/after gallery)
 - [ ] Where he currently stores photos (Google Photos, phone camera roll, etc.)
@@ -53,4 +57,5 @@
   - Example: "POV: Brentwood just got a little cleaner 💪"
 - **Target areas:** Brentwood and Franklin (focus geo-targeting here first)
 - **Tone:** Relatable, light, local — not a hard sell
-- Still need: Does Tony want to appear on camera, or is this voiceover + footage of the work?
+- **On camera:** ✅ Tony is comfortable on camera (confirmed by his existing social media post with his photo)
+- Voiceover + job footage also works as a format variation
