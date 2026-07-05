@@ -19,8 +19,13 @@
   - Phone / contact info
   - Photo upload (of stump/tree/work area)
 - Add a Partners / Links section:
-  - Brentwood Dirt Works
-  - Trevor's site (URL still needed)
+  - **Brentwood Dirt Works** (owner: Trevor) ✅
+    - Phone: 615-569-1679
+    - Instagram: @Brentwooddirtworks
+    - Facebook: Brentwood Dirt Works
+    - Services: Demolition, Excavation, Grading, French Drains, Waterproofing, Land Clearing, Tree Removal, Stump Grinding
+    - Website URL: still needed
+  - Referral partnership — overlapping services, send each other jobs
 
 ## Google Setup
 - Tony creating a new Google account (offered to create it for him — confirmed yes)
@@ -40,7 +45,7 @@
 
 ## Outstanding — Need From Tony
 - [ ] Final exact business name confirmed (Tony's Land Clearing?)
-- [ ] Trevor's website URL
+- [ ] Trevor's (Brentwood Dirt Works) website URL
 - [ ] Google account created + credentials
 - [ ] tonylandclearing.com domain — confirm name works
 - [x] Phone number — 620-617-1838 ✅
