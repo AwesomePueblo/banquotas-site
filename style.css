@@ -149,6 +149,30 @@ body::before {
   box-shadow: inset 3px 0 0 var(--cerulean);
 }
 
+.sidebar-social {
+  padding: 0.5rem 0.75rem 1rem;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 0.5rem;
+}
+
+.sidebar-social a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 9px;
+  transition: var(--transition);
+}
+
+.sidebar-social a:hover {
+  background: var(--glass-bg);
+  color: var(--cerulean-light);
+}
+
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
   display: none;
