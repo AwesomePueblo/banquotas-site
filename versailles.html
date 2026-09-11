@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Versailles — BanQuotas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJLZ26REPX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJLZ26REPX');
+  </script>
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="senses/index.html">The Senses Project</a></li>
+        <li><a href="senses/light.html">Journey Through Light</a></li>
+        <li><a href="senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="senses/quantum.html">Quantum Physics</a></li>
+        <li><a href="products/index.html">Field Guide</a></li>
+        <li><a href="chat.html">AI Conversation</a></li>
+        <li><a href="index.html#newsletter">Newsletter</a></li>
+        <li><a href="senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-social">
+      <a href="https://www.instagram.com/twosuitdonny/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        Instagram
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <article class="essay">
+
+      <div class="essay-header">
+        <p class="essay-kicker">What the Stones Said &mdash; Part 1</p>
+        <h1>Versailles</h1>
+        <p class="essay-subtitle">Where Power Dressed Itself Up</p>
+      </div>
+
+      <div class="essay-body">
+
+        <p>The first thing I stood in front of was a scale model of the Palace of Versailles - the whole complex laid out on a table, labeled in both French and English, with tourists leaning over it trying to find where they were going. I could read the placards: Chapelle, The Royal Chapel. Opera, The Royal Opera. Avant-Cour, Courtyard of Honor. A model of power arranged neatly under glass.</p>
+
+        <p>The questions started immediately. Why did they lose the land from the Revolution? The answer is simple and brutal - it was taken. In 1789 the monarchy was abolished, Louis XVI was arrested, and every royal property became state property. They didn't lose it in any gradual way. It was seized. The palace that had been the center of the known French world became property of the people who had been excluded from it.</p>
+
+        <p>What struck me was the strategic genius beneath the spectacle. Louis XIV didn't just build Versailles to show off - he built it as a political trap. He required the nobility to live at court, gave them paid positions, kept them occupied with ceremony and ritual. Busy, dependent nobles couldn't plot against the king. The palace wasn't just architecture. It was a control system dressed in gold.</p>
+
+        <p>And then there was the Diamond Necklace scandal - a story almost too baroque to believe. A con artist named Jeanne de la Motte manipulated a cardinal into purchasing an impossibly expensive diamond necklace, supposedly on behalf of Marie Antoinette. She had nothing to do with it. But the scandal destroyed her reputation with the French public and became one of the accelerants of revolutionary sentiment against her.</p>
+
+        <p>Power concentrated that visibly, that extravagantly, always generates the forces that eventually dismantle it.</p>
+
+      </div>
+
+      <div class="essay-footer">
+        <p class="essay-signoff"><em>This is part of "What the Stones Said" - a series from two weeks through Europe and the Mediterranean. Subscribe to follow the full journey.</em></p>
+        <a href="https://twosuitdonny.substack.com/p/versailles-where-power-dressed-itself?r=19cf3r&utm_medium=ios" class="btn btn-primary" target="_blank" rel="noopener">Read on Substack</a>
+        <a href="https://www.instagram.com/twosuitdonny/" class="btn btn-secondary" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(event.target) &&
+          !toggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
