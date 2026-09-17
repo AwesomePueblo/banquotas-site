@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The First Movie — BanQuotas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XJLZ26REPX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XJLZ26REPX');
+  </script>
+</head>
+<body>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>BanQuotas</h1>
+      <p>Exploring the sensory spectrum, perception, and beyond</p>
+    </div>
+    <div class="sidebar-nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="senses/index.html">The Senses Project</a></li>
+        <li><a href="senses/light.html">Journey Through Light</a></li>
+        <li><a href="senses/taste.html">Journey Through Taste</a></li>
+        <li><a href="senses/quantum.html">Quantum Physics</a></li>
+        <li><a href="products/index.html">Field Guide</a></li>
+        <li><a href="chat.html">AI Conversation</a></li>
+        <li><a href="index.html#newsletter">Newsletter</a></li>
+        <li><a href="senses/donate.html">Support BanQuotas</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-social">
+      <a href="https://www.instagram.com/twosuitdonny/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        Instagram
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <article class="essay">
+
+      <div class="essay-header">
+        <p class="essay-kicker">What the Stones Said &mdash; Part 2</p>
+        <h1>The First Movie</h1>
+        <p class="essay-subtitle">Louis XIV invented the immersive brand experience 300 years before anyone called it that.</p>
+      </div>
+
+      <div class="essay-body">
+
+        <p>You don't watch Versailles. You walk through it.</p>
+
+        <p>That sounds obvious. But think about what that actually means.</p>
+
+        <p>Each room is a complete tableau — painted ceiling, gilded walls, a single coherent visual argument about power and divinity. You move through them in sequence, one after the next, in a fixed order. The rooms don't move. You do. Still frames assembled in sequence with a single moving element.</p>
+
+        <p>That's how a movie works.</p>
+
+        <p>Louis XIV didn't build Versailles to impress visitors. He built it to control them. The nobles were required to live at court, where they paid him for their positions. They spent their own money for the privilege of being there. Busy, debt-dependent nobles couldn't plot. The palace wasn't architecture. It was a trap dressed in gold.</p>
+
+        <p>The craftsmen who built it understood the assignment. Le Brun, the chief painter, directed his artists and sculptors to exacting specification — every ceiling panel a precise political argument, every allegory placed where the eye would land on it. The paintings weren't decoration. They were propaganda delivered at close range, room by room, inescapably.</p>
+
+        <p>What Louis XIV understood — and what every brand strategist since has borrowed without knowing it — is that you can't just show people a message. You have to put them inside it. The moment they're moving through your story rather than looking at it, they stop being an audience. They become participants.</p>
+
+        <p>Disney learned this. Apple learned this. Every stadium, every hotel lobby, every well-designed retail experience uses the same principle: a sequence of spaces, a fixed path, you as the moving element.</p>
+
+        <p>The Sun King just did it first. And he did it so well that the people he was controlling paid for the experience.</p>
+
+      </div>
+
+      <div class="essay-footer">
+        <p class="essay-signoff"><em>This is part of "What the Stones Said" — a series from two weeks through Europe and the Mediterranean. Subscribe to follow the full journey.</em></p>
+        <a href="https://twosuitdonny.substack.com/p/the-first-movie?r=19cf3r&utm_medium=ios" class="btn btn-primary" target="_blank" rel="noopener">Read on Substack</a>
+        <a href="https://www.instagram.com/twosuitdonny/" class="btn btn-secondary" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+    document.addEventListener('click', function(event) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth <= 768 &&
+          !sidebar.contains(event.target) &&
+          !toggle.contains(event.target) &&
+          sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
