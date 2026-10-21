@@ -1099,6 +1099,83 @@ blockquote cite {
   margin-bottom: 2rem;
 }
 
+/* Section Labels */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cerulean-light);
+  margin: 3.5rem 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* Site Footer */
+.site-footer {
+  margin-left: calc(-1 * var(--content-padding));
+  margin-right: calc(-1 * var(--content-padding));
+  margin-top: 4rem;
+  padding: 2rem var(--content-padding);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-footer-copyright {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.site-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.site-footer-links a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.site-footer-links a:hover {
+  color: var(--cerulean-light);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding: 1.5rem 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 1.5rem 1rem;
+  }
+}
+
 /* ─── Essay / Long-form Page ────────────────────────────────────────── */
 .essay {
   max-width: 720px;
