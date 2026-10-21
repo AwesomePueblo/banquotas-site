@@ -1,0 +1,5 @@
+
+# Email agent
+email-agent/token.json
+email-agent/credentials.json
+email-agent/.env
